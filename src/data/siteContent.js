@@ -8,10 +8,10 @@ export const hero = {
   title: 'Desenvolvedor Web & Automação',
   subtitle:
     'Desenvolvo sistemas e automações que economizam tempo, reduzem custos e aumentam resultados.',
-  trustLine: 'Atendimento direto • Projetos sob medida • Suporte pós-entrega',
+  trustLine: '• Atendimento direto • Projetos sob medida • Suporte pós-entrega',
   highlights: [
-    '💻 Especialista em sistemas web, automação e integração',
-    '🚀 Foco em performance, praticidade e crescimento',
+    'Especialista em sistemas web, automação e integração',
+    'Foco em performance, praticidade e crescimento',
   ],
   ctaPrimary: { label: 'Ver Projetos', href: '#tecnologias' },
   ctaSecondary: { label: 'Entrar em Contato', href: '#contato' },
@@ -87,6 +87,7 @@ export const skills = {
 /** Lista plana de tecnologias para o showcase (esquerda). Cada projeto usa um subconjunto em `tech`. */
 export const techStackShowcase = {
   allTech: [
+    'HTML', 'CSS', 'JavaScript',
     'Vue', 'React', 'Vuetify', 'Tailwind', 'Node.js', 'Python', 'APIs REST', 'WhatsApp', 'ADB',
     'Git', 'GitHub', 'Docker', 'Redis', 'MongoDB',
   ],
@@ -109,7 +110,24 @@ export const projects = {
         'Relatórios de desempenho',
       ],
       result: 'Mais organização, menos faltas e mais produtividade para empresas.',
-      tech: ['React', 'Tailwind', 'Node.js', 'APIs REST', 'WhatsApp'],
+      tech: ['Vue', 'Vuetify', 'JavaScript', 'Node.js', 'WhatsApp', 'GitHub', 'Docker', 'Redis', 'MongoDB'],
+      demoUrl: null,
+      githubUrl: null,
+    },
+    {
+      id: 'autozap',
+      name: 'AutoZap',
+      badge: null,
+      description:
+        'Sistema de automação para WhatsApp com IA e Multichat com Multi Instâncias.',
+      features: [
+        'Automação com IA',
+        'Multichat e multi instâncias',
+        'Integração WhatsApp',
+        'Backend escalável',
+      ],
+      result: null,
+      tech: ['Vue', 'Vuetify', 'JavaScript', 'Node.js', 'MongoDB', 'Docker', 'Redis', 'WhatsApp', 'GitHub'],
       demoUrl: null,
       githubUrl: null,
     },
@@ -120,7 +138,7 @@ export const projects = {
       description: 'Sistema para debug e gerenciamento de dispositivos Android via ADB.',
       features: ['Coleta de logs', 'Gerenciamento de aplicativos', 'Manutenção básica', 'Integração com Platform Tools'],
       result: null,
-      tech: ['Python', 'ADB'],
+      tech: ['Python', 'ADB', 'GitHub'],
       demoUrl: null,
       githubUrl: null,
     },
@@ -131,7 +149,7 @@ export const projects = {
       description: 'Plataforma para controle seguro de acessos e senhas corporativas.',
       features: ['Gestão de usuários', 'Configuração de credenciais', 'Integração com totens', 'Interface moderna'],
       result: null,
-      tech: ['React'],
+      tech: ['React', 'Tailwind', 'JavaScript', 'Node.js', 'GitHub'],
       demoUrl: null,
       githubUrl: null,
     },
@@ -143,7 +161,7 @@ export const projects = {
         'Aplicação desktop para gravação de tela e uso como segunda tela em mini PCs Android.',
       features: ['Screen recording', 'Segunda tela via ADB', 'Interface amigável', 'Integração nativa'],
       result: null,
-      tech: ['Python', 'ADB'],
+      tech: ['Python', 'ADB', 'Git', 'GitHub'],
       demoUrl: null,
       githubUrl: null,
     },
@@ -154,7 +172,7 @@ export const projects = {
       description: 'Repositório interno para aplicações, tutoriais e documentação técnica.',
       features: ['Centralização de conteúdo', 'Organização de projetos', 'Padronização interna', 'Base de conhecimento'],
       result: null,
-      tech: ['Git', 'GitHub'],
+      tech: ['HTML', 'CSS', 'JavaScript', 'Node.js', 'Git', 'GitHub'],
       demoUrl: null,
       githubUrl: null,
     },
@@ -194,12 +212,12 @@ export const contact = {
   subtitle:
     'Estou pronto para desenvolver sua solução com qualidade, agilidade e foco em resultado.',
   channels: [
-    { icon: '📱', label: 'WhatsApp', value: '(adicione aqui)', href: 'https://wa.me/55' },
-    { icon: '📧', label: 'E-mail', value: '(adicione aqui)', href: 'mailto:seu@email.com' },
+    { icon: '📱', label: 'WhatsApp', value: '(83) 9328-3219', href: 'https://wa.me/558393283219' },
+    { icon: '📧', label: 'E-mail', value: 'deyvisonchaves@gmail.com', href: 'mailto:deyvisonchaves@gmail.com' },
     { icon: '💼', label: 'LinkedIn', value: '(adicione aqui)', href: 'https://linkedin.com/in/seu-perfil' },
-    { icon: '💻', label: 'GitHub', value: '(adicione aqui)', href: 'https://github.com/seu-usuario' },
+    { icon: '💻', label: 'GitHub', value: 'ChavesSD', href: 'https://github.com/ChavesSD' },
   ],
-  cta: { label: 'Fale Comigo Agora', href: 'https://wa.me/55' },
+  cta: { label: 'Fale Comigo Agora', href: 'https://wa.me/558393283219' },
   ctaHeadline: 'Pronto para tirar seu projeto do papel?',
   ctaText: 'Vamos transformar sua ideia em resultado. Sem burocracia, com atendimento direto.',
   conversionPhrase: 'Resposta rápida • Atendimento direto • Sem burocracia',
@@ -209,9 +227,8 @@ export const contact = {
     'Resposta rápida',
   ],
   primaryButtons: [
-    { label: 'WhatsApp', href: 'https://wa.me/55', primary: true },
-    { label: 'E-mail', href: 'mailto:seu@email.com', primary: false },
-    { label: 'LinkedIn', href: 'https://linkedin.com/in/seu-perfil', primary: false },
+    { label: 'WhatsApp', href: 'https://wa.me/558393283219', primary: true, icon: 'whatsapp' },
+    { label: 'E-mail', href: 'mailto:deyvisonchaves@gmail.com', primary: false, icon: 'email' },
   ],
 }
 
@@ -222,9 +239,9 @@ export const footer = {
   rights: 'Todos os direitos reservados.',
   available: 'Disponível para projetos em 2026',
   links: [
-    { label: 'WhatsApp', href: 'https://wa.me/55' },
+    { label: 'WhatsApp', href: 'https://wa.me/558393283219' },
     { label: 'LinkedIn', href: 'https://linkedin.com/in/seu-perfil' },
-    { label: 'GitHub', href: 'https://github.com/seu-usuario' },
-    { label: 'E-mail', href: 'mailto:seu@email.com' },
+    { label: 'GitHub', href: 'https://github.com/ChavesSD' },
+    { label: 'E-mail', href: 'mailto:deyvisonchaves@gmail.com' },
   ],
 }

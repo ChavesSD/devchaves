@@ -54,7 +54,7 @@ export default function Hero() {
               className="text-slate-500 text-sm mb-6"
               variants={item}
             >
-              🚀 {hero.trustLine}
+              {hero.trustLine}
             </motion.p>
             <motion.ul
               className="text-left max-w-md mx-auto lg:mx-0 mb-6 space-y-1.5 text-slate-400 text-sm"
@@ -62,7 +62,11 @@ export default function Hero() {
             >
               {hero.highlights.map((line, i) => (
                 <li key={i} className="flex items-center gap-2">
-                  <span className="text-accent-primary">▹</span>
+                  <span className="inline-flex items-center justify-center shrink-0 w-5 h-5 text-accent-primary" aria-hidden>
+                    <svg className="asterisco-spin w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 2L13.5 10.5L22 12L13.5 13.5L12 22L10.5 13.5L2 12L10.5 10.5L12 2Z" />
+                    </svg>
+                  </span>
                   {line}
                 </li>
               ))}

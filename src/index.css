@@ -104,6 +104,25 @@ button:focus-visible {
   }
 }
 
+/* Asterisco SVG girando no próprio centro (Hero highlights) */
+.asterisco-spin {
+  transform-origin: 50% 50%;
+  animation: spin-in-place 2s linear infinite;
+}
+@keyframes spin-in-place {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .asterisco-spin {
+    animation: none;
+  }
+}
+
 /* ---- Fundos por seção ---- */
 
 /* Hero: Aurora Gradient */
