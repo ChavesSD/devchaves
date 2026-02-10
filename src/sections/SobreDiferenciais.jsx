@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { Check, UserRound } from 'lucide-react'
 import { about, diferenciais } from '../data/siteContent'
 
 const cardLeftVariant = {
@@ -32,7 +33,8 @@ export default function SobreDiferenciais() {
           viewport={{ once: true }}
         >
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-white/10 bg-white/[0.02]">
-            👤 Sobre & Diferenciais
+            <UserRound className="w-4 h-4 text-accent-primary" aria-hidden />
+            <span>Sobre & Diferenciais</span>
           </span>
         </motion.p>
 
@@ -47,7 +49,7 @@ export default function SobreDiferenciais() {
             transition={{ duration: 0.4, delay: 0.08 }}
           >
             <h2 className="text-accent-primary font-display font-bold text-2xl sm:text-[32px] mb-4">
-              ✨ {about.title}
+              {about.title}
             </h2>
             <p className="text-white/80 leading-relaxed mb-3 text-[15px]">
               {about.paragraphs[0]}
@@ -74,7 +76,7 @@ export default function SobreDiferenciais() {
               <ul className="space-y-1.5 text-white/75 text-sm">
                 {about.proofSocial.map((item, i) => (
                   <li key={i} className="flex items-center gap-2">
-                    <span className="text-accent-primary">✔</span>
+                    <Check className="w-4 h-4 text-accent-primary" aria-hidden />
                     {item}
                   </li>
                 ))}
@@ -93,12 +95,12 @@ export default function SobreDiferenciais() {
             transition={{ duration: 0.4, delay: 0.1 }}
           >
             <h2 className="text-accent-primary font-display font-bold text-2xl sm:text-[32px] mb-4">
-              ✔️ {diferenciais.title}
+              {diferenciais.title}
             </h2>
             <ul className="list-none pl-0 space-y-2 text-white/80 leading-relaxed text-[15px]">
               {diferenciais.items.map((item, i) => (
                 <li key={i} className="flex items-start gap-2.5">
-                  <span className="text-accent-primary shrink-0 mt-0.5" aria-hidden>✓</span>
+                  <Check className="w-4 h-4 text-accent-primary shrink-0 mt-0.5" aria-hidden />
                   {item}
                 </li>
               ))}

@@ -1,15 +1,42 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { techStackShowcase, projects } from '../data/siteContent'
+import { Star } from 'lucide-react'
 import { getTechIconUrl } from '../utils/techIcons'
 
 const projectItems = projects.items
 const total = projectItems.length
 
+const AGENDAQUI_IMAGES = [1, 2, 3, 4, 5, 6].map((n) => `/Agendaqui/${n}.png`)
+const AUTOZAP_IMAGES = [1, 2, 3].map((n) => `/AutoZap/${n}.png`)
+const CAROUSEL_INTERVAL_MS = 4000
+
+const PROJECT_CAROUSEL_IMAGES = {
+  agendaqui: AGENDAQUI_IMAGES,
+  autozap: AUTOZAP_IMAGES,
+}
+
 export default function TechShowcase() {
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [carouselImageIndex, setCarouselImageIndex] = useState(0)
   const project = projectItems[currentIndex]
   const projectTech = project.tech || []
+  const carouselImages = PROJECT_CAROUSEL_IMAGES[project.id] ?? null
+  const hasCarousel = !!carouselImages
+
+  // Carrossel automático quando o projeto tem galeria
+  useEffect(() => {
+    if (!carouselImages) return
+    const t = setInterval(() => {
+      setCarouselImageIndex((i) => (i + 1) % carouselImages.length)
+    }, CAROUSEL_INTERVAL_MS)
+    return () => clearInterval(t)
+  }, [currentIndex, carouselImages])
+
+  // Reset do carrossel ao trocar de projeto
+  useEffect(() => {
+    if (hasCarousel) setCarouselImageIndex(0)
+  }, [currentIndex])
 
   const goPrev = () => setCurrentIndex((i) => (i <= 0 ? total - 1 : i - 1))
   const goNext = () => setCurrentIndex((i) => (i >= total - 1 ? 0 : i + 1))
@@ -80,16 +107,92 @@ export default function TechShowcase() {
                   transition={{ duration: 0.3, ease: 'easeOut' }}
                   className="p-0"
                 >
-                  {/* Mini-preview placeholder */}
-                  <div
-                    className="h-28 w-full bg-gradient-to-br from-accent-primary/15 via-white/5 to-accent-secondary/10 border-b border-white/10"
-                    aria-hidden
-                  />
+                  {/* Área de demonstração: carrossel de imagens ou placeholder */}
+                  {hasCarousel ? (
+                    <div className="relative h-44 sm:h-52 w-full border-b border-white/10 overflow-hidden bg-black/30">
+                      <div
+                        className="flex h-full transition-transform duration-500 ease-out"
+                        style={{
+                          width: `${carouselImages.length * 100}%`,
+                          transform: `translateX(-${carouselImageIndex * (100 / carouselImages.length)}%)`,
+                        }}
+                        aria-live="polite"
+                        aria-label={`Imagem ${carouselImageIndex + 1} de ${carouselImages.length}`}
+                      >
+                        {carouselImages.map((src, i) => (
+                          <div
+                            key={src}
+                            className="h-full shrink-0 bg-black/20"
+                            style={{ width: `${100 / carouselImages.length}%` }}
+                          >
+                            <img
+                              src={src}
+                              alt={`${project.name} - demonstração ${i + 1}`}
+                              className="h-full w-full object-cover object-top"
+                              loading={i === 0 ? 'eager' : 'lazy'}
+                            />
+                          </div>
+                        ))}
+                      </div>
+                      {/* Navegação do carrossel de imagens */}
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          setCarouselImageIndex((i) => (i - 1 + carouselImages.length) % carouselImages.length)
+                        }}
+                        className="absolute left-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-black/50 text-white/90 hover:bg-black/70 hover:text-white transition-colors"
+                        aria-label="Imagem anterior"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                        </svg>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          setCarouselImageIndex((i) => (i + 1) % carouselImages.length)
+                        }}
+                        className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-black/50 text-white/90 hover:bg-black/70 hover:text-white transition-colors"
+                        aria-label="Próxima imagem"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </button>
+                      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">
+                        {carouselImages.map((_, i) => (
+                          <button
+                            key={i}
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              setCarouselImageIndex(i)
+                            }}
+                            className={`h-1.5 rounded-full transition-all ${
+                              i === carouselImageIndex ? 'w-5 bg-white' : 'w-1.5 bg-white/50 hover:bg-white/70'
+                            }`}
+                            aria-label={`Ir para imagem ${i + 1}`}
+                            aria-current={i === carouselImageIndex}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  ) : (
+                    <div
+                      className="h-28 w-full bg-gradient-to-br from-accent-primary/15 via-white/5 to-accent-secondary/10 border-b border-white/10"
+                      aria-hidden
+                    />
+                  )}
                   <div className="p-6 sm:p-7">
                     <div className="flex flex-wrap items-center gap-2 mb-3">
                       {project.badge && (
                         <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300">
-                          ⭐ {project.badge}
+                          <span className="inline-flex items-center gap-1">
+                            <Star className="w-3.5 h-3.5" aria-hidden />
+                            <span>{project.badge}</span>
+                          </span>
                         </span>
                       )}
                       <h3 className="font-display font-semibold text-2xl text-white">

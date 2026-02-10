@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { Check } from 'lucide-react'
 import { experience, contact } from '../data/siteContent'
 
 const cardVariant = {
@@ -111,7 +112,7 @@ export default function ExperienciaContato() {
             <ul className="space-y-1.5 mb-4 text-sm text-white/70">
               {contact.guaranteePhrase.map((phrase, i) => (
                 <li key={i} className="flex items-center gap-2">
-                  <span className="text-emerald-400">✔</span>
+                  <Check className="w-4 h-4 text-emerald-400" aria-hidden />
                   {phrase}
                 </li>
               ))}

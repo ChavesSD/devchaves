@@ -1,9 +1,13 @@
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
+import { Star } from 'lucide-react'
 import Button from '../components/Button'
 import TechMarquee from '../components/TechMarquee'
 import { hero, projects } from '../data/siteContent'
 
 const agendaqui = projects.items[0]
+const AGENDAQUI_IMAGES = [1, 2, 3, 4, 5, 6].map((n) => `/Agendaqui/${n}.png`)
+const CAROUSEL_INTERVAL_MS = 4000
 
 const container = {
   hidden: { opacity: 0 },
@@ -19,6 +23,15 @@ const item = {
 }
 
 export default function Hero() {
+  const [carouselIndex, setCarouselIndex] = useState(0)
+
+  useEffect(() => {
+    const t = setInterval(() => {
+      setCarouselIndex((i) => (i + 1) % AGENDAQUI_IMAGES.length)
+    }, CAROUSEL_INTERVAL_MS)
+    return () => clearInterval(t)
+  }, [])
+
   return (
     <section className="relative min-h-screen flex flex-col px-4 sm:px-6 pt-24 pb-8 overflow-hidden">
       <div className="aurora-bg" aria-hidden />
@@ -105,11 +118,52 @@ export default function Hero() {
           >
             <a
               href="#tecnologias"
-              className="block rounded-2xl border border-bg-cardBorder bg-bg-card/70 backdrop-blur-card p-6 hover:border-accent-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-accent-primary/10"
+              className="block rounded-2xl border border-bg-cardBorder bg-bg-card/70 backdrop-blur-card overflow-hidden hover:border-accent-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-accent-primary/10"
             >
+              {/* Carrossel de imagens do Agendaqui */}
+              <div className="relative h-36 sm:h-44 w-full overflow-hidden bg-black/30">
+                <div
+                  className="flex h-full transition-transform duration-500 ease-out"
+                  style={{
+                    width: `${AGENDAQUI_IMAGES.length * 100}%`,
+                    transform: `translateX(-${carouselIndex * (100 / AGENDAQUI_IMAGES.length)}%)`,
+                  }}
+                  aria-live="polite"
+                >
+                  {AGENDAQUI_IMAGES.map((src, i) => (
+                    <div
+                      key={src}
+                      className="h-full shrink-0 bg-black/20"
+                      style={{ width: `${100 / AGENDAQUI_IMAGES.length}%` }}
+                    >
+                      <img
+                        src={src}
+                        alt={`${agendaqui.name} - demonstração ${i + 1}`}
+                        className="h-full w-full object-cover object-top"
+                        loading={i === 0 ? 'eager' : 'lazy'}
+                      />
+                    </div>
+                  ))}
+                </div>
+                <div className="absolute bottom-1.5 left-1/2 -translate-x-1/2 flex gap-1">
+                  {AGENDAQUI_IMAGES.map((_, i) => (
+                    <span
+                      key={i}
+                      className={`h-1 rounded-full transition-all ${
+                        i === carouselIndex ? 'w-4 bg-white' : 'w-1 bg-white/50'
+                      }`}
+                      aria-hidden
+                    />
+                  ))}
+                </div>
+              </div>
+              <div className="p-6 pt-4">
               <div className="flex items-center gap-2 mb-3">
                 <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-accent-primary/20 text-accent-secondary">
-                  ⭐ {agendaqui.badge}
+                  <span className="inline-flex items-center gap-1">
+                    <Star className="w-3.5 h-3.5" aria-hidden />
+                    <span>{agendaqui.badge}</span>
+                  </span>
                 </span>
               </div>
               <h3 className="font-display text-xl font-semibold text-white mb-2">
@@ -129,6 +183,7 @@ export default function Hero() {
               <p className="text-accent-secondary text-sm font-medium mt-4">
                 Ver projeto →
               </p>
+              </div>
             </a>
           </motion.div>
         </div>

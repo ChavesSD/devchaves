@@ -54,7 +54,7 @@ export const diferenciais = {
     'Suporte e acompanhamento pós-entrega',
   ],
   compromissoTitle: 'Compromisso',
-  compromisso: ['Qualidade', 'Performance', 'Organização', 'Foco em resultado'],
+  compromisso: ['Qualidade', 'Performance', 'Organização', 'Foco em resultado', 'Compromisso', 'Transparência'],
 }
 
 /** Referência do stack por categoria (opcional; a UI usa techStackShowcase.allTech). */
@@ -62,22 +62,22 @@ export const skills = {
   title: 'Tecnologias & Skills',
   groups: [
     {
-      icon: '💻',
+      icon: 'frontend',
       label: 'Frontend',
       items: ['HTML', 'CSS', 'JavaScript', 'Vue', 'React', 'Vuetify', 'Tailwind CSS'],
     },
     {
-      icon: '⚙️',
+      icon: 'backend',
       label: 'Backend',
       items: ['Node.js', 'Python', 'APIs REST', 'Docker', 'Redis', 'MongoDB'],
     },
     {
-      icon: '🤖',
+      icon: 'automation',
       label: 'Automação',
       items: ['ADB', 'Scripts', 'Bots', 'Automação Web', 'Integrações de Sistemas'],
     },
     {
-      icon: '☁️',
+      icon: 'tools',
       label: 'Ferramentas & Infra',
       items: ['Git', 'GitHub', 'VPS', 'Deploy', 'Linux', 'Windows Server'],
     },
@@ -212,10 +212,10 @@ export const contact = {
   subtitle:
     'Estou pronto para desenvolver sua solução com qualidade, agilidade e foco em resultado.',
   channels: [
-    { icon: '📱', label: 'WhatsApp', value: '(83) 9328-3219', href: 'https://wa.me/558393283219' },
-    { icon: '📧', label: 'E-mail', value: 'deyvisonchaves@gmail.com', href: 'mailto:deyvisonchaves@gmail.com' },
-    { icon: '💼', label: 'LinkedIn', value: '(adicione aqui)', href: 'https://linkedin.com/in/seu-perfil' },
-    { icon: '💻', label: 'GitHub', value: 'ChavesSD', href: 'https://github.com/ChavesSD' },
+    { icon: 'whatsapp', label: 'WhatsApp', value: '(83) 9328-3219', href: 'https://wa.me/558393283219' },
+    { icon: 'email', label: 'E-mail', value: 'deyvisonchaves@gmail.com', href: 'mailto:deyvisonchaves@gmail.com' },
+    { icon: 'linkedin', label: 'LinkedIn', value: '(adicione aqui)', href: 'https://linkedin.com/in/seu-perfil' },
+    { icon: 'github', label: 'GitHub', value: 'ChavesSD', href: 'https://github.com/ChavesSD' },
   ],
   cta: { label: 'Fale Comigo Agora', href: 'https://wa.me/558393283219' },
   ctaHeadline: 'Pronto para tirar seu projeto do papel?',
