@@ -2,11 +2,12 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Star } from 'lucide-react'
 import Button from '../components/Button'
+import PerspectiveGridBackground from '../components/PerspectiveGridBackground'
 import TechMarquee from '../components/TechMarquee'
 import { hero, projects } from '../data/siteContent'
 
 const agendaqui = projects.items[0]
-const AGENDAQUI_IMAGES = [1, 2, 3, 4, 5, 6].map((n) => `/Agendaqui/${n}.png`)
+const AGENDAQUI_IMAGES = [1, 2, 3].map((n) => `/Agendaqui/${n}.png`)
 const CAROUSEL_INTERVAL_MS = 4000
 
 const container = {
@@ -34,7 +35,7 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-screen flex flex-col px-4 sm:px-6 pt-24 pb-8 overflow-hidden">
-      <div className="aurora-bg" aria-hidden />
+      <PerspectiveGridBackground />
 
       <div className="relative max-w-6xl mx-auto w-full flex-1 flex flex-col justify-center z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">

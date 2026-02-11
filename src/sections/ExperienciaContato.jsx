@@ -15,7 +15,7 @@ const cardRightVariant = {
 export default function ExperienciaContato() {
   return (
     <section className="relative py-12 sm:py-14 px-4 sm:px-6 overflow-hidden" id="contato">
-      <div className="aurora-bg-soft" aria-hidden />
+      <div className="section-bg-soft" aria-hidden />
       {/* Divider com glow */}
       <div
         className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-2xl h-px opacity-50"

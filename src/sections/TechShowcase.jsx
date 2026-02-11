@@ -7,13 +7,15 @@ import { getTechIconUrl } from '../utils/techIcons'
 const projectItems = projects.items
 const total = projectItems.length
 
-const AGENDAQUI_IMAGES = [1, 2, 3, 4, 5, 6].map((n) => `/Agendaqui/${n}.png`)
+const AGENDAQUI_IMAGES = [1, 2, 3].map((n) => `/Agendaqui/${n}.png`)
 const AUTOZAP_IMAGES = [1, 2, 3].map((n) => `/AutoZap/${n}.png`)
+const CREDENCIAIS_IMAGES = [1, 2, 3].map((n) => `/Credenciais/${n}.png`)
 const CAROUSEL_INTERVAL_MS = 4000
 
 const PROJECT_CAROUSEL_IMAGES = {
   agendaqui: AGENDAQUI_IMAGES,
   autozap: AUTOZAP_IMAGES,
+  'intelite-credenciais': CREDENCIAIS_IMAGES,
 }
 
 export default function TechShowcase() {
