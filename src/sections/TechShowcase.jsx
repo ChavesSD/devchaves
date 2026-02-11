@@ -10,12 +10,16 @@ const total = projectItems.length
 const AGENDAQUI_IMAGES = [1, 2, 3].map((n) => `/Agendaqui/${n}.png`)
 const AUTOZAP_IMAGES = [1, 2, 3].map((n) => `/AutoZap/${n}.png`)
 const CREDENCIAIS_IMAGES = [1, 2, 3].map((n) => `/Credenciais/${n}.png`)
+const SCREENOID_IMAGES = [1, 2, 3].map((n) => `/Screenoid/${n}.png`)
+const ADB_LOGGER_IMAGES = [1, 2, 3].map((n) => `/ADB%20Logger/${n}.png`)
 const CAROUSEL_INTERVAL_MS = 4000
 
 const PROJECT_CAROUSEL_IMAGES = {
   agendaqui: AGENDAQUI_IMAGES,
   autozap: AUTOZAP_IMAGES,
   'intelite-credenciais': CREDENCIAIS_IMAGES,
+  screnoid: SCREENOID_IMAGES,
+  'adb-logger': ADB_LOGGER_IMAGES,
 }
 
 export default function TechShowcase() {
