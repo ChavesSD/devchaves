@@ -12,6 +12,7 @@ const AUTOZAP_IMAGES = [1, 2, 3].map((n) => `/AutoZap/${n}.png`)
 const CREDENCIAIS_IMAGES = [1, 2, 3].map((n) => `/Credenciais/${n}.png`)
 const SCREENOID_IMAGES = [1, 2, 3].map((n) => `/Screenoid/${n}.png`)
 const ADB_LOGGER_IMAGES = [1, 2, 3].map((n) => `/ADB%20Logger/${n}.png`)
+const INTELITEHUB_IMAGES = [1].map((n) => `/InteliteHub/${n}.png`)
 const CAROUSEL_INTERVAL_MS = 4000
 
 const PROJECT_CAROUSEL_IMAGES = {
@@ -20,6 +21,7 @@ const PROJECT_CAROUSEL_IMAGES = {
   'intelite-credenciais': CREDENCIAIS_IMAGES,
   screnoid: SCREENOID_IMAGES,
   'adb-logger': ADB_LOGGER_IMAGES,
+  intelitehub: INTELITEHUB_IMAGES,
 }
 
 export default function TechShowcase() {
