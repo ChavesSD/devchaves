@@ -3,18 +3,55 @@
  * Textos, links e projetos ficam aqui para facilitar manutenção e escala.
  */
 
+const WA_NUMBER = '5583999467796'
+const WA_MESSAGE =
+  'Olá Deyvison, vi seu portfólio e quero conversar sobre um projeto de sistema ou automação.'
+
+export function buildWhatsAppUrl(message = WA_MESSAGE) {
+  return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`
+}
+
+export const whatsappUrl = buildWhatsAppUrl()
+
+export const briefingOptions = [
+  {
+    id: 'web',
+    label: 'Sistema web',
+    message:
+      'Olá Deyvison, vi seu portfólio e preciso de um sistema web sob medida. Podemos conversar?',
+  },
+  {
+    id: 'automation',
+    label: 'Automação',
+    message:
+      'Olá Deyvison, vi seu portfólio e quero automatizar rotinas manuais no meu negócio. Podemos conversar?',
+  },
+  {
+    id: 'whatsapp',
+    label: 'Integração WhatsApp',
+    message:
+      'Olá Deyvison, vi seu portfólio e quero integrar WhatsApp ao meu fluxo de atendimento. Podemos conversar?',
+  },
+  {
+    id: 'other',
+    label: 'Outro',
+    message:
+      'Olá Deyvison, vi seu portfólio e quero conversar sobre um projeto. Podemos falar?',
+  },
+]
+
 export const hero = {
   name: 'Deyvison Chaves',
   title: 'Desenvolvedor Web e Automação',
   subtitle:
     'Sistemas, automações e integrações sob medida para o dia a dia do negócio.',
   ctaPrimary: { label: 'Ver projetos', href: '#projetos' },
-  ctaSecondary: { label: 'Entrar em contato', href: '#contato' },
+  ctaSecondary: { label: 'WhatsApp', href: whatsappUrl },
   techStackMarquee: [
     'HTML', 'CSS', 'JavaScript', 'Vue', 'React', 'Vuetify', 'Tailwind', 'Node.js', 'Python',
     'APIs REST', 'WhatsApp API', 'ADB', 'Git', 'Docker', 'Redis', 'MongoDB', 'VPS',
   ],
-  photo: '/deyvison.png?v=4',
+  photo: '/deyvison.png?v=5',
   statusLabel: 'Disponível para novos projetos',
   scrollHint: 'Role para ver mais',
 }
@@ -26,6 +63,11 @@ export const about = {
   ],
   focusTitle: 'Foco',
   focus: ['Aplicações web', 'Automação', 'Integrações'],
+  transformTitle: 'Antes e depois',
+  transform: {
+    before: 'Planilha, cópia manual e retrabalho no dia a dia',
+    after: 'Fluxo automatizado, menos erro e mais tempo útil',
+  },
 }
 
 export const diferenciais = {
@@ -81,17 +123,16 @@ export const projects = {
       name: 'Aidate',
       badge: 'Projeto principal',
       description:
-        'Plataforma de agendamento de serviços, pensada para organizar o atendimento e reduzir faltas.',
-      features: [
-        'Agendamento online',
-        'Escolha de profissionais e serviços',
-        'Lembretes no WhatsApp',
-        'Painel de gestão',
-        'Relatórios de desempenho',
-      ],
-      result: 'Mais organização no dia a dia, menos faltas e melhor aproveitamento da agenda.',
-      tech: ['Vue', 'Vuetify', 'JavaScript', 'Node.js', 'WhatsApp', 'GitHub', 'Docker', 'Redis', 'MongoDB'],
+        'Plataforma de agendamento de serviços para organizar atendimento e reduzir faltas.',
+      case: {
+        problem: 'Agenda desorganizada e faltas frequentes',
+        action: 'Agendamento online com lembretes no WhatsApp',
+        result: 'Mais organização e melhor aproveitamento da agenda',
+      },
+      tech: ['Vue', 'Vuetify', 'JavaScript', 'Node.js', 'WhatsApp', 'Docker', 'Redis', 'MongoDB'],
+      preview: '/Agendaqui/1.png',
       demoUrl: 'https://aidate.com.br/',
+      demoLabel: 'Ver online',
       githubUrl: null,
     },
     {
@@ -99,14 +140,16 @@ export const projects = {
       name: 'Aibox',
       badge: null,
       description:
-        'Aplicação em Python com ADB Platform Tools para gerenciar e automatizar dispositivos Android.',
-      features: [
-        'Feito em Python',
-        'Integração com ADB Platform Tools',
-      ],
-      result: null,
+        'Aplicação em Python com ADB para gerenciar e automatizar dispositivos Android.',
+      case: {
+        problem: 'Operações manuais repetitivas em aparelhos Android',
+        action: 'Automação via Python e ADB Platform Tools',
+        result: 'Rotinas mais rápidas e menos intervenção manual',
+      },
       tech: ['Python', 'ADB'],
+      preview: null,
       demoUrl: null,
+      demoLabel: null,
       githubUrl: null,
     },
     {
@@ -114,15 +157,16 @@ export const projects = {
       name: 'Feedback Intelite',
       badge: null,
       description:
-        'Sistema para gestão de equipe, com acompanhamento e registro de feedbacks entre colaboradores.',
-      features: [
-        'Gestão de equipe',
-        'Acompanhamento de colaboradores',
-        'Registro de feedbacks',
-      ],
-      result: null,
+        'Sistema interno para gestão de equipe e registro de feedbacks entre colaboradores.',
+      case: {
+        problem: 'Feedbacks soltos e pouco acompanhamento de equipe',
+        action: 'Painel para registrar e acompanhar feedbacks',
+        result: 'Histórico claro e gestão mais consistente',
+      },
       tech: ['JavaScript', 'Node.js', 'GitHub'],
+      preview: null,
       demoUrl: null,
+      demoLabel: null,
       githubUrl: null,
     },
     {
@@ -130,15 +174,15 @@ export const projects = {
       name: 'InteliteHub',
       badge: null,
       description: 'Central interna de aplicações, tutoriais e documentação técnica.',
-      features: [
-        'Conteúdo em um só lugar',
-        'Organização de projetos',
-        'Padronização interna',
-        'Base de conhecimento',
-      ],
-      result: null,
+      case: {
+        problem: 'Conhecimento e apps espalhados em vários lugares',
+        action: 'Hub único com docs, tutoriais e acessos',
+        result: 'Onboarding mais rápido e menos dúvida repetida',
+      },
       tech: ['HTML', 'CSS', 'JavaScript', 'Node.js', 'Git', 'GitHub'],
+      preview: '/InteliteHub/1.png',
       demoUrl: null,
+      demoLabel: null,
       githubUrl: null,
     },
   ],
@@ -170,15 +214,17 @@ export const contact = {
   headline: 'Vamos conversar?',
   channelsTitle: 'Canais',
   channels: [
-    { icon: 'whatsapp', label: 'WhatsApp', value: '(83) 99946-7796', href: 'https://wa.me/5583999467796' },
+    { icon: 'whatsapp', label: 'WhatsApp', value: '(83) 99946-7796', href: whatsappUrl },
     { icon: 'email', label: 'E-mail', value: 'deyvisonchaves@gmail.com', href: 'mailto:deyvisonchaves@gmail.com' },
     { icon: 'linkedin', label: 'LinkedIn', value: 'deyvison-chaves', href: 'https://www.linkedin.com/in/deyvison-chaves-70360436b/' },
     { icon: 'github', label: 'GitHub', value: 'ChavesSD', href: 'https://github.com/ChavesSD' },
   ],
-  cta: { label: 'Falar comigo', href: 'https://wa.me/5583999467796' },
-  ctaText: 'Me chama no WhatsApp ou no e-mail.',
+  cta: { label: 'Falar comigo', href: whatsappUrl },
+  ctaText: 'Escolha o que você precisa e eu já abro o WhatsApp com a mensagem certa.',
+  responseHint: 'Resposta rápida, atendimento direto',
+  briefingTitle: 'O que você precisa?',
   primaryButtons: [
-    { label: 'WhatsApp', href: 'https://wa.me/5583999467796', primary: true, icon: 'whatsapp' },
+    { label: 'WhatsApp', href: whatsappUrl, primary: true, icon: 'whatsapp' },
     { label: 'E-mail', href: 'mailto:deyvisonchaves@gmail.com', primary: false, icon: 'email' },
   ],
 }
@@ -188,9 +234,9 @@ export const footer = {
   name: 'Deyvison Chaves',
   tagline: 'Desenvolvedor Web e Automação',
   rights: 'Todos os direitos reservados.',
-  available: 'Aberto a novos projetos em 2026',
+  available: 'Aberto a novos projetos',
   links: [
-    { label: 'WhatsApp', href: 'https://wa.me/5583999467796' },
+    { label: 'WhatsApp', href: whatsappUrl },
     { label: 'LinkedIn', href: 'https://www.linkedin.com/in/deyvison-chaves-70360436b/' },
     { label: 'GitHub', href: 'https://github.com/ChavesSD' },
     { label: 'E-mail', href: 'mailto:deyvisonchaves@gmail.com' },

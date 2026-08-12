@@ -3,12 +3,12 @@ export default function SectionShell({ number, children, className = '' }) {
     <section className={`relative h-full min-h-dvh w-full lg:min-h-0 ${className}`}>
       <div
         data-scrollable
-        className="relative z-10 flex h-full min-h-full flex-col items-center justify-center overflow-x-hidden overflow-y-auto px-5 pb-10 pt-20 sm:px-8 lg:px-10 lg:py-12"
+        className="relative z-10 flex h-full min-h-full flex-col items-center justify-center overflow-x-hidden overflow-y-auto px-5 pb-8 pt-16 sm:px-8 lg:px-10 lg:py-10"
       >
         {children}
       </div>
       <span
-        className="pointer-events-none absolute -bottom-6 right-2 select-none font-display text-[min(28vw,11rem)] font-bold leading-none text-white/[0.03] lg:-bottom-10 lg:right-6 lg:text-[12rem]"
+        className="pointer-events-none absolute -bottom-4 right-1 select-none font-display text-[min(36vw,14rem)] font-bold leading-none text-white/[0.045] sm:right-2 sm:text-[min(34vw,15rem)] lg:-bottom-8 lg:right-4 lg:text-[16rem]"
         aria-hidden
       >
         {number}
