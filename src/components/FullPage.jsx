@@ -5,30 +5,19 @@ import {
   useRef,
   useState,
 } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import SideNav from './SideNav'
 import { FullPageContext } from './fullPageContext'
 
-const COOLDOWN_MS = 950
-const WHEEL_THRESHOLD = 50
+const TRANSITION_MS = 480
+const COOLDOWN_MS = 520
+const WHEEL_THRESHOLD = 55
 const SWIPE_THRESHOLD = 48
 
-const slideVariants = {
-  enter: (direction) => ({
-    y: direction > 0 ? '100%' : '-100%',
-    opacity: 0.6,
-    zIndex: 2,
-  }),
-  center: {
-    y: 0,
-    opacity: 1,
-    zIndex: 2,
-  },
-  exit: (direction) => ({
-    y: direction > 0 ? '-18%' : '18%',
-    opacity: 0,
-    zIndex: 1,
-  }),
+const slideTransition = {
+  type: 'tween',
+  duration: TRANSITION_MS / 1000,
+  ease: [0.22, 1, 0.36, 1],
 }
 
 function getScrollableAncestor(node) {
@@ -69,14 +58,48 @@ export default function FullPage({ sections }) {
   const wheelAccRef = useRef(0)
   const touchStartY = useRef(0)
   const cooldownTimer = useRef(null)
-
   const reducedRef = useRef(false)
+  const nestedNavRef = useRef(null)
+  const sectionsRef = useRef(sections)
 
   useEffect(() => {
     reducedRef.current = reducedMotion
   }, [reducedMotion])
 
+  useEffect(() => {
+    sectionsRef.current = sections
+  }, [sections])
+
   const total = sections.length
+
+  const startCooldown = useCallback(() => {
+    animatingRef.current = true
+    wheelAccRef.current = 0
+    window.clearTimeout(cooldownTimer.current)
+    cooldownTimer.current = window.setTimeout(() => {
+      animatingRef.current = false
+    }, COOLDOWN_MS)
+  }, [])
+
+  const registerNestedNav = useCallback((handlers) => {
+    nestedNavRef.current = handlers
+    return () => {
+      if (nestedNavRef.current === handlers) nestedNavRef.current = null
+    }
+  }, [])
+
+  const tryNestedStep = useCallback(
+    (dir) => {
+      const sectionId = sectionsRef.current[indexRef.current]?.id
+      const handlers = nestedNavRef.current
+      if (!handlers || handlers.sectionId !== sectionId) return false
+      const consumed = dir > 0 ? handlers.onNext?.() : handlers.onPrev?.()
+      if (!consumed) return false
+      startCooldown()
+      return true
+    },
+    [startCooldown]
+  )
 
   const goTo = useCallback(
     (nextIndex, dir) => {
@@ -93,18 +116,12 @@ export default function FullPage({ sections }) {
       if (animatingRef.current) return
 
       const nextDir = dir ?? (clamped > indexRef.current ? 1 : -1)
-      animatingRef.current = true
-      wheelAccRef.current = 0
+      startCooldown()
       indexRef.current = clamped
       setDirection(nextDir)
       setIndex(clamped)
-
-      window.clearTimeout(cooldownTimer.current)
-      cooldownTimer.current = window.setTimeout(() => {
-        animatingRef.current = false
-      }, COOLDOWN_MS)
     },
-    [sections, total]
+    [sections, startCooldown, total]
   )
 
   const goToId = useCallback(
@@ -115,8 +132,15 @@ export default function FullPage({ sections }) {
     [goTo, sections]
   )
 
-  const next = useCallback(() => goTo(indexRef.current + 1, 1), [goTo])
-  const prev = useCallback(() => goTo(indexRef.current - 1, -1), [goTo])
+  const next = useCallback(() => {
+    if (tryNestedStep(1)) return
+    goTo(indexRef.current + 1, 1)
+  }, [goTo, tryNestedStep])
+
+  const prev = useCallback(() => {
+    if (tryNestedStep(-1)) return
+    goTo(indexRef.current - 1, -1)
+  }, [goTo, tryNestedStep])
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -191,16 +215,18 @@ export default function FullPage({ sections }) {
       if (scrollable && canInnerScroll(scrollable, e.deltaY)) return
 
       e.preventDefault()
-      if (animatingRef.current) return
+      if (animatingRef.current) {
+        wheelAccRef.current = 0
+        return
+      }
 
       wheelAccRef.current += e.deltaY
-      if (wheelAccRef.current > WHEEL_THRESHOLD) {
-        wheelAccRef.current = 0
-        next()
-      } else if (wheelAccRef.current < -WHEEL_THRESHOLD) {
-        wheelAccRef.current = 0
-        prev()
-      }
+      if (Math.abs(wheelAccRef.current) < WHEEL_THRESHOLD) return
+
+      const goingDown = wheelAccRef.current > 0
+      wheelAccRef.current = 0
+      if (goingDown) next()
+      else prev()
     }
 
     const onTouchStart = (e) => {
@@ -267,16 +293,17 @@ export default function FullPage({ sections }) {
       goToId,
       next,
       prev,
+      registerNestedNav,
       reducedMotion,
     }),
-    [direction, goTo, goToId, index, next, prev, reducedMotion, sections, total]
+    [direction, goTo, goToId, index, next, prev, reducedMotion, registerNestedNav, sections, total]
   )
 
   if (reducedMotion) {
     return (
       <FullPageContext.Provider value={value}>
         <SideNav />
-        <div className="lg:ml-56">
+        <div className="lg:pl-56">
           {sections.map((section) => (
             <div key={section.id} id={section.id}>
               {section.content}
@@ -292,24 +319,25 @@ export default function FullPage({ sections }) {
       <SideNav />
       <div className="relative h-dvh w-full overflow-hidden lg:pl-56">
         <div className="relative h-full w-full overflow-hidden">
-          <AnimatePresence initial={false} custom={direction}>
-            <motion.div
-              key={sections[index].id}
-              id={sections[index].id}
-              custom={direction}
-              variants={slideVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: 0.85, ease: [0.76, 0, 0.24, 1] }}
-              className="absolute inset-0"
-              onAnimationComplete={() => {
-                animatingRef.current = false
-              }}
-            >
-              {sections[index].content}
-            </motion.div>
-          </AnimatePresence>
+          <motion.div
+            className="fullpage-track w-full"
+            animate={{ y: `${-index * 100}dvh` }}
+            transition={slideTransition}
+            onAnimationComplete={() => {
+              animatingRef.current = false
+            }}
+          >
+            {sections.map((section, i) => (
+              <div
+                key={section.id}
+                id={section.id}
+                className="fullpage-panel h-dvh w-full"
+                aria-hidden={i !== index}
+              >
+                {section.content}
+              </div>
+            ))}
+          </motion.div>
         </div>
       </div>
     </FullPageContext.Provider>

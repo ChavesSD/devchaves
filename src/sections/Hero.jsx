@@ -21,9 +21,10 @@ const item = {
 }
 
 export default function Hero() {
-  const { next } = useFullPage()
+  const { next, index } = useFullPage()
   const [firstName, lastName] = hero.name.split(' ')
   const [photoOk, setPhotoOk] = useState(Boolean(hero.photo))
+  const isActive = index === 0
 
   return (
     <SectionShell number="01">
@@ -126,7 +127,7 @@ export default function Hero() {
                   onError={() => setPhotoOk(false)}
                   className="hero-photo h-full w-auto max-w-full object-contain object-bottom"
                 />
-                <HandTechPowers items={hero.techStackMarquee} />
+                <HandTechPowers items={hero.techStackMarquee} active={isActive} />
               </div>
             ) : (
               <div className="relative z-10 flex h-full w-full items-end justify-center">

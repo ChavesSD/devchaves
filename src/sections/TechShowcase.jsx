@@ -1,12 +1,14 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Star } from 'lucide-react'
 import SectionShell from '../components/SectionShell'
+import { useFullPage } from '../components/fullPageContext'
 import { techStackShowcase, projects, sectionLabels } from '../data/siteContent'
 import { getTechIconUrl } from '../utils/techIcons'
 
 const projectItems = projects.items
 const total = projectItems.length
+const SECTION_ID = 'projetos'
 
 const PROJECT_CAROUSEL_IMAGES = {
   agendaqui: [1, 2, 3].map((n) => `/Agendaqui/${n}.png`),
@@ -16,12 +18,51 @@ const PROJECT_CAROUSEL_IMAGES = {
 const CAROUSEL_INTERVAL_MS = 4000
 
 export default function TechShowcase() {
+  const { index, direction, sections, registerNestedNav } = useFullPage()
   const [currentIndex, setCurrentIndex] = useState(0)
   const [carouselImageIndex, setCarouselImageIndex] = useState(0)
+  const currentIndexRef = useRef(0)
+  const wasActiveRef = useRef(false)
   const project = projectItems[currentIndex]
   const projectTech = project.tech || []
   const carouselImages = PROJECT_CAROUSEL_IMAGES[project.id] ?? null
   const hasCarousel = !!carouselImages
+  const isActive = sections[index]?.id === SECTION_ID
+
+  const selectProject = useCallback((i) => {
+    setCurrentIndex(i)
+    currentIndexRef.current = i
+    setCarouselImageIndex(0)
+  }, [])
+
+  useEffect(() => {
+    currentIndexRef.current = currentIndex
+  }, [currentIndex])
+
+  useEffect(() => {
+    if (isActive && !wasActiveRef.current) {
+      selectProject(direction < 0 ? total - 1 : 0)
+    }
+    wasActiveRef.current = isActive
+  }, [direction, isActive, selectProject])
+
+  useEffect(() => {
+    return registerNestedNav({
+      sectionId: SECTION_ID,
+      onNext: () => {
+        const i = currentIndexRef.current
+        if (i >= total - 1) return false
+        selectProject(i + 1)
+        return true
+      },
+      onPrev: () => {
+        const i = currentIndexRef.current
+        if (i <= 0) return false
+        selectProject(i - 1)
+        return true
+      },
+    })
+  }, [registerNestedNav, selectProject])
 
   useEffect(() => {
     if (!carouselImages) return undefined
@@ -30,11 +71,6 @@ export default function TechShowcase() {
     }, CAROUSEL_INTERVAL_MS)
     return () => clearInterval(t)
   }, [currentIndex, carouselImages])
-
-  const selectProject = (i) => {
-    setCurrentIndex(i)
-    setCarouselImageIndex(0)
-  }
 
   const goPrev = () => selectProject(currentIndex <= 0 ? total - 1 : currentIndex - 1)
   const goNext = () => selectProject(currentIndex >= total - 1 ? 0 : currentIndex + 1)

@@ -13,26 +13,26 @@ const PARTICLES = [
   { x: -22, y: -18, delay: '0.4s', duration: '2.2s' },
 ]
 
-export default function HandTechPowers({ items = [] }) {
+export default function HandTechPowers({ items = [], active = true }) {
   const [index, setIndex] = useState(0)
   const tech = items[index]
   const iconUrl = tech ? getTechIconUrl(tech) : null
 
   useEffect(() => {
-    if (!items.length) return undefined
+    if (!items.length || !active) return undefined
     const t = setInterval(() => {
       setIndex((i) => (i + 1) % items.length)
     }, CYCLE_MS)
     return () => clearInterval(t)
-  }, [items])
+  }, [items, active])
 
-  if (!items.length) return null
+  if (!items.length || !active) return null
 
   return (
     <div
       className="hand-powers pointer-events-none absolute z-30"
       style={{
-        left: '11%',
+        left: '4%',
         top: '52%',
         width: '30%',
         height: '30%',

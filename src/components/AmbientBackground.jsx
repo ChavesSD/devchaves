@@ -7,29 +7,40 @@ export default function AmbientBackground() {
   useEffect(() => {
     const el = glowRef.current
     if (!el) return
+
     let raf = 0
     let x = 50
     let y = 40
     let tx = 50
     let ty = 40
+    let running = false
+
+    const paint = () => {
+      x += (tx - x) * 0.08
+      y += (ty - y) * 0.08
+      el.style.background = `radial-gradient(640px circle at ${x}% ${y}%, rgba(34,211,238,0.10), transparent 42%)`
+
+      if (Math.abs(tx - x) > 0.15 || Math.abs(ty - y) > 0.15) {
+        raf = requestAnimationFrame(paint)
+      } else {
+        running = false
+        raf = 0
+      }
+    }
 
     const onMove = (e) => {
       tx = (e.clientX / window.innerWidth) * 100
       ty = (e.clientY / window.innerHeight) * 100
-    }
-
-    const tick = () => {
-      x += (tx - x) * 0.06
-      y += (ty - y) * 0.06
-      el.style.background = `radial-gradient(640px circle at ${x}% ${y}%, rgba(34,211,238,0.10), transparent 42%)`
-      raf = requestAnimationFrame(tick)
+      if (!running) {
+        running = true
+        raf = requestAnimationFrame(paint)
+      }
     }
 
     window.addEventListener('pointermove', onMove, { passive: true })
-    raf = requestAnimationFrame(tick)
     return () => {
       window.removeEventListener('pointermove', onMove)
-      cancelAnimationFrame(raf)
+      if (raf) cancelAnimationFrame(raf)
     }
   }, [])
 

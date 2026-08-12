@@ -193,12 +193,12 @@ export const contact = {
   headline: 'Quer conversar sobre um projeto?',
   subtitle: 'Posso ajudar a tirar sua ideia do papel com organização e atenção ao que realmente importa.',
   channels: [
-    { icon: 'whatsapp', label: 'WhatsApp', value: '(83) 9328-3219', href: 'https://wa.me/558393283219' },
+    { icon: 'whatsapp', label: 'WhatsApp', value: '(83) 99946-7796', href: 'https://wa.me/5583999467796' },
     { icon: 'email', label: 'E-mail', value: 'deyvisonchaves@gmail.com', href: 'mailto:deyvisonchaves@gmail.com' },
     { icon: 'linkedin', label: 'LinkedIn', value: 'deyvison-chaves', href: 'https://www.linkedin.com/in/deyvison-chaves-70360436b/' },
     { icon: 'github', label: 'GitHub', value: 'ChavesSD', href: 'https://github.com/ChavesSD' },
   ],
-  cta: { label: 'Falar comigo', href: 'https://wa.me/558393283219' },
+  cta: { label: 'Falar comigo', href: 'https://wa.me/5583999467796' },
   ctaHeadline: 'Vamos conversar?',
   ctaText: 'Me chama no WhatsApp ou no e-mail. Atendimento direto, sem burocracia.',
   conversionPhrase: 'Resposta rápida, atendimento direto e sem burocracia',
@@ -208,7 +208,7 @@ export const contact = {
     'Resposta rápida',
   ],
   primaryButtons: [
-    { label: 'WhatsApp', href: 'https://wa.me/558393283219', primary: true, icon: 'whatsapp' },
+    { label: 'WhatsApp', href: 'https://wa.me/5583999467796', primary: true, icon: 'whatsapp' },
     { label: 'E-mail', href: 'mailto:deyvisonchaves@gmail.com', primary: false, icon: 'email' },
   ],
 }
@@ -220,7 +220,7 @@ export const footer = {
   rights: 'Todos os direitos reservados.',
   available: 'Aberto a novos projetos em 2026',
   links: [
-    { label: 'WhatsApp', href: 'https://wa.me/558393283219' },
+    { label: 'WhatsApp', href: 'https://wa.me/5583999467796' },
     { label: 'LinkedIn', href: 'https://www.linkedin.com/in/deyvison-chaves-70360436b/' },
     { label: 'GitHub', href: 'https://github.com/ChavesSD' },
     { label: 'E-mail', href: 'mailto:deyvisonchaves@gmail.com' },

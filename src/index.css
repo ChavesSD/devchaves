@@ -55,6 +55,17 @@ h1, h2, h3 {
   overscroll-behavior: none;
 }
 
+.fullpage-track {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.fullpage-panel {
+  contain: layout style;
+  transform: translateZ(0);
+}
+
 .skip-link {
   position: absolute;
   top: -100px;
