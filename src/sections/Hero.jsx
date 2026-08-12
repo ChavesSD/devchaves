@@ -45,7 +45,7 @@ export default function Hero() {
 
             <motion.h1
               variants={item}
-              className="font-display text-[clamp(2.4rem,7vw,5.4rem)] font-extrabold leading-[0.92] tracking-tight text-white"
+              className="font-display text-[clamp(2.25rem,5.5vw,4.25rem)] font-bold leading-[1.02] tracking-[-0.03em] text-white"
             >
               {firstName}
               <span className="block bg-gradient-to-r from-sky-300 via-cyan-300 to-indigo-400 bg-clip-text text-transparent">

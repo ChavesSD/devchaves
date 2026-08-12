@@ -16,7 +16,7 @@ export default function ExperienciaContato() {
           {sectionLabels.experiencia}
         </motion.p>
         <motion.h2
-          className="mb-10 font-display text-3xl font-bold tracking-tight text-white sm:text-5xl"
+          className="mb-10 font-display text-3xl font-bold tracking-tight text-white sm:text-4xl"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
         >

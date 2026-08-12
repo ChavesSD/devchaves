@@ -16,7 +16,7 @@ export default function Contato() {
             {sectionLabels.contato}
           </motion.p>
           <motion.h2
-            className="max-w-3xl font-display text-3xl font-bold tracking-tight text-white sm:text-5xl"
+            className="max-w-3xl font-display text-3xl font-bold tracking-tight text-white sm:text-4xl"
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
           >

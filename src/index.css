@@ -27,6 +27,8 @@ body {
   background-color: var(--bg);
   color: #e2e8f0;
   font-family: 'Inter', system-ui, sans-serif;
+  font-synthesis: none;
+  font-stretch: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -36,6 +38,13 @@ body {
   width: 100%;
   max-width: 100%;
   overflow-x: hidden;
+}
+
+.font-display,
+h1, h2, h3 {
+  font-synthesis: none;
+  font-stretch: normal;
+  letter-spacing: -0.02em;
 }
 
 .fullpage-lock,

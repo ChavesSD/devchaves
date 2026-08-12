@@ -46,7 +46,7 @@ export default function SideNav() {
                     aria-current={active ? 'page' : undefined}
                   >
                     <span
-                      className={`relative z-10 flex h-[23px] w-[23px] items-center justify-center rounded-full border transition-all duration-300 ${
+                      className={`relative z-10 flex aspect-square h-[22px] w-[22px] shrink-0 items-center justify-center rounded-full border transition-all duration-300 ${
                         active
                           ? 'border-accent-secondary bg-accent-secondary shadow-[0_0_16px_rgba(34,211,238,0.55)]'
                           : 'border-white/20 bg-[#030712] group-hover:border-accent-secondary/60'

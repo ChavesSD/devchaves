@@ -8,7 +8,7 @@ export default function SectionShell({ number, children, className = '' }) {
         {children}
       </div>
       <span
-        className="pointer-events-none absolute -bottom-8 right-0 select-none font-display text-[42vw] font-extrabold leading-none text-white/[0.03] lg:-bottom-16 lg:right-6 lg:text-[16rem]"
+        className="pointer-events-none absolute -bottom-6 right-2 select-none font-display text-[min(28vw,11rem)] font-bold leading-none text-white/[0.03] lg:-bottom-10 lg:right-6 lg:text-[12rem]"
         aria-hidden
       >
         {number}
