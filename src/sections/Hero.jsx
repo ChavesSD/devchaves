@@ -7,7 +7,6 @@ import {
   SectionFrame,
   SectionEyebrow,
   SectionHeading,
-  SectionGrid,
   SectionColumn,
   MetaLabel,
   BodyText,
@@ -22,58 +21,78 @@ export default function Hero() {
   const [photoOk, setPhotoOk] = useState(Boolean(hero.photo))
   const isActive = index === 0
 
+  const photo = (
+    <div className="relative mx-auto flex h-[min(38vh,280px)] w-full max-w-[220px] items-center justify-center sm:h-[min(42vh,320px)] sm:max-w-xs lg:h-[min(62vh,520px)] lg:max-w-none">
+      <div
+        className="pointer-events-none absolute inset-[8%] rounded-full bg-[radial-gradient(circle,rgba(34,211,238,0.18)_0%,rgba(59,130,246,0.08)_40%,transparent_72%)] blur-3xl"
+        aria-hidden
+      />
+      {photoOk ? (
+        <div className="hero-photo-wrap relative z-10 h-full w-auto max-w-full">
+          <img
+            src={hero.photo}
+            alt={hero.name}
+            onError={() => setPhotoOk(false)}
+            className="hero-photo h-full w-auto max-w-full object-contain object-center"
+          />
+          <HandTechPowers items={hero.techStackMarquee} active={isActive} />
+        </div>
+      ) : (
+        <p className="relative z-10 text-sm text-slate-500">
+          Foto em <span className="font-mono text-accent-secondary">public/deyvison.png</span>
+        </p>
+      )}
+    </div>
+  )
+
+  const copy = (
+    <>
+      <SectionEyebrow className="text-center lg:text-left">
+        {sectionLabels.inicio}
+      </SectionEyebrow>
+
+      <SectionHeading as="h1" className="!mx-auto !max-w-none sm:!text-5xl lg:!mx-0">
+        {firstName}{' '}
+        <span className="bg-gradient-to-r from-sky-300 via-cyan-300 to-indigo-400 bg-clip-text text-transparent">
+          {lastName}
+        </span>
+      </SectionHeading>
+
+      <p className="mt-4 text-lg font-medium text-accent-secondary sm:mt-5 sm:text-xl">
+        {hero.title}
+      </p>
+      <BodyText className="mx-auto mt-3 lg:mx-0 lg:mt-4">{hero.subtitle}</BodyText>
+
+      <MetaLabel className="mt-6 lg:mt-8">Status</MetaLabel>
+      <MetaLine>{hero.statusLabel}</MetaLine>
+
+      <div className="mt-6 flex flex-wrap justify-center gap-3 lg:mt-8 lg:justify-start">
+        <Button href={hero.ctaPrimary.href} label={hero.ctaPrimary.label} variant="primary" />
+        <Button href={hero.ctaSecondary.href} label={hero.ctaSecondary.label} variant="secondary" />
+      </div>
+    </>
+  )
+
   return (
     <SectionShell number="01">
       <SectionFrame>
-        <SectionEyebrow>{sectionLabels.inicio}</SectionEyebrow>
-
-        <SectionGrid className="mt-6 items-center lg:gap-10">
-          <SectionColumn delay={0.08}>
-            <SectionHeading as="h1" className="!max-w-none sm:!text-5xl">
-              {firstName}{' '}
-              <span className="bg-gradient-to-r from-sky-300 via-cyan-300 to-indigo-400 bg-clip-text text-transparent">
-                {lastName}
-              </span>
-            </SectionHeading>
-
-            <p className="mt-5 text-lg font-medium text-accent-secondary sm:text-xl">
-              {hero.title}
-            </p>
-            <BodyText className="mt-4">{hero.subtitle}</BodyText>
-
-            <MetaLabel className="mt-8">Status</MetaLabel>
-            <MetaLine>{hero.statusLabel}</MetaLine>
-
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Button href={hero.ctaPrimary.href} label={hero.ctaPrimary.label} variant="primary" />
-              <Button href={hero.ctaSecondary.href} label={hero.ctaSecondary.label} variant="secondary" />
-            </div>
+        {/* Mobile: coluna com foto → texto */}
+        <div className="flex flex-col items-center gap-6 text-center lg:hidden">
+          <SectionColumn delay={0.08} className="w-full">
+            {photo}
           </SectionColumn>
-
-          <SectionColumn delay={0.14}>
-            <div className="relative mx-auto flex h-[min(52vh,420px)] w-full max-w-md items-center justify-center lg:mx-0 lg:h-[min(62vh,520px)] lg:max-w-none">
-              <div
-                className="pointer-events-none absolute inset-[8%] rounded-full bg-[radial-gradient(circle,rgba(34,211,238,0.18)_0%,rgba(59,130,246,0.08)_40%,transparent_72%)] blur-3xl"
-                aria-hidden
-              />
-              {photoOk ? (
-                <div className="hero-photo-wrap relative z-10 h-full w-auto max-w-full">
-                  <img
-                    src={hero.photo}
-                    alt={hero.name}
-                    onError={() => setPhotoOk(false)}
-                    className="hero-photo h-full w-auto max-w-full object-contain object-center"
-                  />
-                  <HandTechPowers items={hero.techStackMarquee} active={isActive} />
-                </div>
-              ) : (
-                <p className="relative z-10 text-sm text-slate-500">
-                  Foto em <span className="font-mono text-accent-secondary">public/deyvison.png</span>
-                </p>
-              )}
-            </div>
+          <SectionColumn delay={0.14} className="w-full">
+            {copy}
           </SectionColumn>
-        </SectionGrid>
+        </div>
+
+        {/* Desktop: texto | foto lado a lado */}
+        <div className="mt-6 hidden grid-cols-[1.15fr_0.85fr] items-center gap-10 lg:grid">
+          <SectionColumn delay={0.08} className="text-left">
+            {copy}
+          </SectionColumn>
+          <SectionColumn delay={0.14}>{photo}</SectionColumn>
+        </div>
 
         <button
           type="button"

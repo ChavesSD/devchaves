@@ -121,30 +121,6 @@ export default function SideNav() {
           {current.number} / {String(total).padStart(2, '0')}
         </p>
       </header>
-
-      <nav
-        className="fixed inset-x-0 bottom-4 z-50 mx-auto flex w-[min(94%,34rem)] items-center justify-start gap-1 overflow-x-auto rounded-full border border-white/10 bg-[#030712]/90 px-2 py-2 shadow-[0_12px_40px_rgba(0,0,0,0.45)] backdrop-blur-xl lg:hidden"
-        aria-label="Seções"
-      >
-        {sections.map((section, i) => {
-          const active = i === index
-          return (
-            <button
-              key={section.id}
-              type="button"
-              onClick={() => goTo(i)}
-              className={`shrink-0 whitespace-nowrap rounded-full px-3 py-2 text-[11px] font-medium transition-all ${
-                active
-                  ? 'bg-white text-slate-900'
-                  : 'text-slate-400 hover:text-white'
-              }`}
-              aria-current={active ? 'page' : undefined}
-            >
-              {section.label}
-            </button>
-          )
-        })}
-      </nav>
     </>
   )
 }

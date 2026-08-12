@@ -9,10 +9,10 @@ export function SectionFrame({ children, className = '' }) {
   )
 }
 
-export function SectionEyebrow({ children }) {
+export function SectionEyebrow({ children, className = '' }) {
   return (
     <motion.p
-      className="mb-3 font-mono text-[11px] tracking-[0.28em] text-accent-secondary"
+      className={`mb-3 font-mono text-[11px] tracking-[0.28em] text-accent-secondary ${className}`}
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
     >
@@ -45,9 +45,10 @@ export function SectionGrid({ children, className = '' }) {
   )
 }
 
-export function SectionColumn({ children, delay = 0.08 }) {
+export function SectionColumn({ children, delay = 0.08, className = '' }) {
   return (
     <motion.div
+      className={className}
       initial={{ opacity: 0, y: 18 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.45, delay }}
