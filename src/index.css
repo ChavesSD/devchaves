@@ -13,11 +13,17 @@
 
 html {
   scroll-behavior: smooth;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
   background-color: var(--bg);
   color: #e2e8f0;
   font-family: 'Inter', system-ui, sans-serif;
@@ -27,6 +33,9 @@ body {
 
 #root {
   min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .fullpage-lock,
@@ -164,6 +173,7 @@ button:focus-visible {
 .hero-photo {
   background: transparent;
   opacity: 1;
+  display: block;
   /* Mantem o corpo inteiro opaco; suaviza so o corte inferior */
   -webkit-mask-image: linear-gradient(
     to bottom,
@@ -180,6 +190,10 @@ button:focus-visible {
     transparent 100%
   );
   filter: drop-shadow(0 16px 32px rgba(0, 0, 0, 0.35));
+  /* evita qualquer esticamento horizontal */
+  object-fit: contain;
+  object-position: bottom center;
+  flex-shrink: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {

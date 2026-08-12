@@ -103,7 +103,7 @@ export default function Hero() {
           </motion.div>
 
           <motion.div
-            className="relative mx-auto flex h-[min(56vh,460px)] w-full max-w-md items-end justify-center lg:h-[min(72vh,600px)] lg:max-w-none"
+            className="relative mx-auto flex h-[min(52vh,420px)] w-full max-w-sm items-end justify-center sm:max-w-md lg:h-[min(68vh,540px)] lg:max-w-lg"
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.28, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
@@ -119,12 +119,12 @@ export default function Hero() {
             />
 
             {photoOk ? (
-              <div className="hero-photo-wrap relative z-10 h-full w-full">
+              <div className="hero-photo-wrap relative z-10 h-full w-auto max-w-full">
                 <img
                   src={hero.photo}
                   alt={hero.name}
                   onError={() => setPhotoOk(false)}
-                  className="hero-photo h-full w-full object-contain object-bottom"
+                  className="hero-photo h-full w-auto max-w-full object-contain object-bottom"
                 />
                 <HandTechPowers items={hero.techStackMarquee} />
               </div>

@@ -16,18 +16,17 @@ const SWIPE_THRESHOLD = 48
 const slideVariants = {
   enter: (direction) => ({
     y: direction > 0 ? '100%' : '-100%',
+    opacity: 0.6,
     zIndex: 2,
   }),
   center: {
     y: 0,
-    scale: 1,
     opacity: 1,
     zIndex: 2,
   },
   exit: (direction) => ({
-    y: direction > 0 ? '-22%' : '22%',
-    scale: 0.92,
-    opacity: 0.25,
+    y: direction > 0 ? '-18%' : '18%',
+    opacity: 0,
     zIndex: 1,
   }),
 }
@@ -291,25 +290,27 @@ export default function FullPage({ sections }) {
   return (
     <FullPageContext.Provider value={value}>
       <SideNav />
-      <div className="relative h-dvh w-full overflow-hidden lg:ml-56 lg:w-[calc(100%-14rem)]">
-        <AnimatePresence initial={false} custom={direction}>
-          <motion.div
-            key={sections[index].id}
-            id={sections[index].id}
-            custom={direction}
-            variants={slideVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{ duration: 0.85, ease: [0.76, 0, 0.24, 1] }}
-            className="absolute inset-0 will-change-transform"
-            onAnimationComplete={() => {
-              animatingRef.current = false
-            }}
-          >
-            {sections[index].content}
-          </motion.div>
-        </AnimatePresence>
+      <div className="relative h-dvh w-full overflow-hidden lg:pl-56">
+        <div className="relative h-full w-full overflow-hidden">
+          <AnimatePresence initial={false} custom={direction}>
+            <motion.div
+              key={sections[index].id}
+              id={sections[index].id}
+              custom={direction}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.85, ease: [0.76, 0, 0.24, 1] }}
+              className="absolute inset-0"
+              onAnimationComplete={() => {
+                animatingRef.current = false
+              }}
+            >
+              {sections[index].content}
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
     </FullPageContext.Provider>
   )
