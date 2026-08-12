@@ -1,16 +1,12 @@
 /**
  * Estilos globais do portfólio
- * 1. Tailwind (base, components, utilities)
- * 2. Variáveis e base (body, root, focus)
- * 3. Hero: .neon-text, .neon-line, @keyframes neon-glow
- * 4. Fundos por seção: .perspective-grid-bg (Hero), .section-bg-sobre, .section-bg-grid, .section-bg-soft
  */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --bg: #020617;
+  --bg: #030712;
   --accent-primary: #3B82F6;
   --accent-secondary: #22D3EE;
 }
@@ -33,7 +29,14 @@ body {
   min-height: 100vh;
 }
 
-/* Acessibilidade: skip link (visível só no foco) */
+.fullpage-lock,
+.fullpage-lock body,
+.fullpage-lock #root {
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
 .skip-link {
   position: absolute;
   top: -100px;
@@ -51,60 +54,20 @@ body {
   top: 0.5rem;
 }
 
-/* Suaviza foco para acessibilidade */
 a:focus-visible,
 button:focus-visible {
   outline: 2px solid var(--accent-primary);
   outline-offset: 2px;
 }
 
-/* ---- Hero: nome em estilo neon ---- */
-.neon-text {
-  font-family: 'Orbitron', sans-serif;
-  font-size: clamp(1.5rem, 5.5vw, 2.75rem);
-  font-weight: 700;
-  text-align: center;
-  letter-spacing: 3px;
-  white-space: nowrap;
-
-  background: linear-gradient(90deg, #38bdf8, #6366f1, #a855f7);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-
-  text-shadow:
-    0 0 8px rgba(56, 189, 248, 0.4),
-    0 0 16px rgba(99, 102, 241, 0.35),
-    0 0 28px rgba(168, 85, 247, 0.3);
-
-  animation: neon-glow 4s ease-in-out infinite alternate;
+.noise-overlay {
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-.neon-line {
-  width: 100%;
-  height: 3px;
-  margin: 12px 0 0;
-
-  background: linear-gradient(90deg, #38bdf8, #a855f7);
-  box-shadow: 0 0 15px #6366f1;
-}
-
-@keyframes neon-glow {
-  from {
-    text-shadow:
-      0 0 6px rgba(56, 189, 248, 0.35),
-      0 0 14px rgba(99, 102, 241, 0.3),
-      0 0 22px rgba(168, 85, 247, 0.25);
-  }
-  to {
-    text-shadow:
-      0 0 10px rgba(56, 189, 248, 0.5),
-      0 0 20px rgba(99, 102, 241, 0.45),
-      0 0 32px rgba(168, 85, 247, 0.4);
-  }
-}
-
-/* Asterisco SVG girando no próprio centro (Hero highlights) */
 .asterisco-spin {
   transform-origin: 50% 50%;
   animation: spin-in-place 2s linear infinite;
@@ -123,13 +86,9 @@ button:focus-visible {
   }
 }
 
-/* ---- Fundos por seção ---- */
-
-/* Hero: Grid em perspectiva */
 .perspective-grid-bg {
   position: absolute;
   inset: 0;
-  z-index: -1;
   overflow: hidden;
   perspective: 1400px;
 }
@@ -138,7 +97,7 @@ button:focus-visible {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(2, 6, 23, 0.7) 0%, transparent 45%);
+  background: linear-gradient(to bottom, rgba(3, 7, 18, 0.82) 0%, transparent 45%, rgba(3, 7, 18, 0.88) 100%);
   pointer-events: none;
 }
 
@@ -173,46 +132,132 @@ button:focus-visible {
   }
 }
 
-/* Experiência & Contato: gradiente estático */
-.section-bg-soft {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    radial-gradient(ellipse 80% 50% at 20% 40%, rgba(56, 189, 248, 0.06), transparent 45%),
-    radial-gradient(ellipse 60% 40% at 80% 60%, rgba(168, 85, 247, 0.05), transparent 40%);
-}
-
-/* Sobre: Noise + Gradient */
-.section-bg-sobre {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    radial-gradient(ellipse 80% 50% at 50% 30%, rgba(59, 130, 246, 0.06), transparent 50%),
-    radial-gradient(ellipse 60% 40% at 80% 70%, rgba(34, 211, 238, 0.04), transparent 40%);
-}
-
-.section-bg-sobre::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  opacity: 0.04;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-/* Stack: Grid Tech */
+.section-bg-soft,
+.section-bg-sobre,
 .section-bg-grid {
+  display: none;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.25);
+  border-radius: 999px;
+}
+
+/* Hero: foto 100% opaca; fade curto so na base */
+.hero-photo-wrap {
+  position: relative;
+  overflow: visible;
+  background: transparent;
+}
+
+.hero-photo-wrap::before,
+.hero-photo-wrap::after {
+  display: none;
+}
+
+.hero-photo {
+  background: transparent;
+  opacity: 1;
+  /* Mantem o corpo inteiro opaco; suaviza so o corte inferior */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 90%,
+    rgba(0, 0, 0, 0.65) 96%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 90%,
+    rgba(0, 0, 0, 0.65) 96%,
+    transparent 100%
+  );
+  filter: drop-shadow(0 16px 32px rgba(0, 0, 0, 0.35));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-photo {
+    filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.3));
+  }
+}
+
+/* Efeito de poderes na mão do hero */
+.hand-powers__glow {
   position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  opacity: 0.05;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-  background-size: 48px 48px;
+  left: 50%;
+  top: 72%;
+  width: 4.5rem;
+  height: 4.5rem;
+  transform: translate(-50%, -50%);
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle,
+    rgba(34, 211, 238, 0.55) 0%,
+    rgba(56, 189, 248, 0.22) 40%,
+    transparent 70%
+  );
+  filter: blur(10px);
+  animation: hand-glow-pulse 2s ease-in-out infinite;
+}
+
+.hand-powers__particle {
+  position: absolute;
+  left: 50%;
+  top: 70%;
+  width: 6px;
+  height: 6px;
+  margin-left: -3px;
+  margin-top: -3px;
+  border-radius: 9999px;
+  background: #67e8f9;
+  box-shadow:
+    0 0 6px 2px rgba(34, 211, 238, 0.95),
+    0 0 14px 4px rgba(56, 189, 248, 0.55);
+  animation-name: hand-particle-rise;
+  animation-timing-function: ease-out;
+  animation-iteration-count: infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes hand-glow-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: translate(-50%, -50%) scale(0.92);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.12);
+  }
+}
+
+@keyframes hand-particle-rise {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.4);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--tx), var(--ty)) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hand-powers__glow,
+  .hand-powers__particle {
+    animation: none;
+  }
+  .hand-powers__particle {
+    display: none;
+  }
 }

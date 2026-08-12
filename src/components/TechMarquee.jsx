@@ -3,11 +3,11 @@
  */
 import { getTechIconUrl } from '../utils/techIcons'
 
-export default function TechMarquee({ items }) {
+export default function TechMarquee({ items, compact = false }) {
   const duplicated = [...items, ...items]
 
   return (
-    <div className="relative w-full overflow-hidden border-y border-white/5 py-5 mt-16">
+    <div className={`relative w-full overflow-hidden border-y border-white/5 ${compact ? 'py-3' : 'mt-16 py-5'}`}>
       <div className="flex animate-marquee w-max gap-12 shrink-0 items-center">
         {duplicated.map((tech, i) => {
           const iconUrl = getTechIconUrl(tech)

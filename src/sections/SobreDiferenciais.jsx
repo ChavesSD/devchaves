@@ -1,130 +1,99 @@
 import { motion } from 'framer-motion'
-import { Check, UserRound } from 'lucide-react'
-import { about, diferenciais } from '../data/siteContent'
-
-const cardLeftVariant = {
-  hidden: { opacity: 0, x: -28 },
-  show: { opacity: 1, x: 0 },
-}
-const cardRightVariant = {
-  hidden: { opacity: 0, x: 28 },
-  show: { opacity: 1, x: 0 },
-}
+import { Check } from 'lucide-react'
+import SectionShell from '../components/SectionShell'
+import { about, diferenciais, sectionLabels } from '../data/siteContent'
 
 export default function SobreDiferenciais() {
   return (
-    <section className="relative py-12 sm:py-14 px-4 sm:px-6" id="sobre">
-      <div className="section-bg-sobre" aria-hidden />
-      {/* Divider com glow suave */}
-      <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-2xl h-px opacity-50"
-        style={{
-          background: 'linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.35), transparent)',
-          boxShadow: '0 0 10px rgba(96, 165, 250, 0.15)',
-        }}
-      />
-
-      <div className="max-w-[1050px] mx-auto">
-        {/* Badge opcional */}
+    <SectionShell number="02">
+      <div className="mx-auto flex min-h-full max-w-6xl flex-col justify-center">
         <motion.p
-          className="text-center text-slate-500 text-sm font-medium mb-8"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
+          className="mb-3 font-mono text-[11px] tracking-[0.28em] text-accent-secondary"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
         >
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-white/10 bg-white/[0.02]">
-            <UserRound className="w-4 h-4 text-accent-primary" aria-hidden />
-            <span>Sobre & Diferenciais</span>
-          </span>
+          {sectionLabels.sobre}
         </motion.p>
+        <motion.h2
+          className="mb-8 max-w-2xl font-display text-3xl font-bold tracking-tight text-white sm:text-5xl"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.05 }}
+        >
+          {about.title}
+        </motion.h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
-          {/* Card esquerda: Sobre Mim */}
-          <motion.div
-            className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:p-7 backdrop-blur-[10px] h-full flex flex-col"
-            variants={cardLeftVariant}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, margin: '-40px' }}
-            transition={{ duration: 0.4, delay: 0.08 }}
+        <div className="grid items-stretch gap-6 lg:grid-cols-2">
+          <motion.article
+            className="flex flex-col rounded-3xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-md sm:p-8"
+            initial={{ opacity: 0, x: -24 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.08 }}
           >
-            <h2 className="text-accent-primary font-display font-bold text-2xl sm:text-[32px] mb-4">
-              {about.title}
-            </h2>
-            <p className="text-white/80 leading-relaxed mb-3 text-[15px]">
-              {about.paragraphs[0]}
-            </p>
-            <p className="text-white/80 leading-relaxed mb-4 text-[15px]">
-              {about.paragraphs[1]}
-            </p>
-            <p className="text-slate-400 text-sm font-medium mb-3">
+            {about.paragraphs.map((p) => (
+              <p key={p} className="mb-4 text-[15px] leading-relaxed text-slate-300 last:mb-0">
+                {p}
+              </p>
+            ))}
+            <p className="mt-5 text-sm text-slate-400">
               Atuação: <span className="text-accent-secondary">{about.atuacao}</span>
             </p>
-            <div className="flex flex-wrap gap-2.5 mt-4">
-              {about.chips.map((chip, i) => (
+            <div className="mt-4 flex flex-wrap gap-2">
+              {about.chips.map((chip) => (
                 <span
-                  key={i}
-                  className="text-[13px] px-3 py-2 rounded-full bg-accent-primary/10 border border-accent-primary/20 text-white/90"
+                  key={chip}
+                  className="rounded-full border border-accent-primary/20 bg-accent-primary/10 px-3 py-1.5 text-[13px] text-white/90"
                 >
                   {chip}
                 </span>
               ))}
             </div>
-            {/* Prova social */}
-            <div className="mt-6 pt-4 border-t border-white/[0.08]">
-              <p className="text-slate-500 text-xs font-medium mb-2">{about.proofCount}</p>
-              <ul className="space-y-1.5 text-white/75 text-sm">
-                {about.proofSocial.map((item, i) => (
-                  <li key={i} className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-accent-primary" aria-hidden />
+            <div className="mt-6 border-t border-white/[0.08] pt-5">
+              <p className="mb-2 text-xs font-medium text-slate-500">{about.proofCount}</p>
+              <ul className="space-y-1.5 text-sm text-slate-300">
+                {about.proofSocial.map((item) => (
+                  <li key={item} className="flex items-center gap-2">
+                    <Check className="h-4 w-4 text-accent-primary" />
                     {item}
                   </li>
                 ))}
               </ul>
             </div>
-          </motion.div>
+          </motion.article>
 
-          {/* Card direita: Diferenciais */}
-          <motion.div
-            className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:p-7 backdrop-blur-[10px] h-full flex flex-col"
-            id="diferenciais"
-            variants={cardRightVariant}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, margin: '-40px' }}
-            transition={{ duration: 0.4, delay: 0.1 }}
+          <motion.article
+            className="flex flex-col rounded-3xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-md sm:p-8"
+            initial={{ opacity: 0, x: 24 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.14 }}
           >
-            <h2 className="text-accent-primary font-display font-bold text-2xl sm:text-[32px] mb-4">
-              {diferenciais.title}
-            </h2>
-            <ul className="list-none pl-0 space-y-2 text-white/80 leading-relaxed text-[15px]">
+            <h3 className="mb-5 font-display text-2xl font-bold text-white">{diferenciais.title}</h3>
+            <ul className="space-y-3">
               {diferenciais.items.map((item, i) => (
-                <li key={i} className="flex items-start gap-2.5">
-                  <Check className="w-4 h-4 text-accent-primary shrink-0 mt-0.5" aria-hidden />
+                <li key={item} className="flex items-start gap-3 text-[15px] text-slate-300">
+                  <span className="mt-0.5 font-mono text-[11px] text-accent-secondary">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
                   {item}
                 </li>
               ))}
             </ul>
-
-            {/* Mini bloco Compromisso */}
-            <div className="mt-5 pt-4 border-t border-white/[0.08]">
-              <h3 className="text-white/90 font-semibold text-base mb-3">
-                {diferenciais.compromissoTitle}
-              </h3>
-              <div className="grid grid-cols-2 gap-2.5">
-                {diferenciais.compromisso.map((item, i) => (
+            <div className="mt-6 border-t border-white/[0.08] pt-5">
+              <h4 className="mb-3 text-sm font-semibold text-white">{diferenciais.compromissoTitle}</h4>
+              <div className="grid grid-cols-2 gap-2">
+                {diferenciais.compromisso.map((item) => (
                   <span
-                    key={i}
-                    className="py-2.5 px-3 rounded-xl bg-black/25 border border-white/[0.08] text-white/85 text-sm"
+                    key={item}
+                    className="rounded-xl border border-white/[0.08] bg-black/25 px-3 py-2.5 text-sm text-slate-300"
                   >
                     {item}
                   </span>
                 ))}
               </div>
             </div>
-          </motion.div>
+          </motion.article>
         </div>
       </div>
-    </section>
+    </SectionShell>
   )
 }

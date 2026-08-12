@@ -15,7 +15,7 @@ export default function Button({
   ...props
 }) {
   const base =
-    'inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]'
+    'inline-flex items-center justify-center px-6 py-3 rounded-2xl font-medium transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]'
 
   const content = (
     <motion.span

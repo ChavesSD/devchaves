@@ -27,7 +27,7 @@ export default function Footer() {
           {footer.available}
         </p>
         <p className="font-medium text-slate-400 text-sm">
-          © {footer.year} — {footer.name}
+          © {footer.year} {footer.name}
         </p>
         <p className="mt-1 text-slate-500 text-sm">{footer.tagline}</p>
         <p className="mt-2 text-slate-600 text-xs">{footer.rights}</p>

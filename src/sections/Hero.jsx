@@ -1,197 +1,155 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Star } from 'lucide-react'
+import { ArrowDown } from 'lucide-react'
 import Button from '../components/Button'
-import PerspectiveGridBackground from '../components/PerspectiveGridBackground'
-import TechMarquee from '../components/TechMarquee'
-import { hero, projects } from '../data/siteContent'
-
-const agendaqui = projects.items[0]
-const AGENDAQUI_IMAGES = [1, 2, 3].map((n) => `/Agendaqui/${n}.png`)
-const CAROUSEL_INTERVAL_MS = 4000
+import HandTechPowers from '../components/HandTechPowers'
+import SectionShell from '../components/SectionShell'
+import { useFullPage } from '../components/fullPageContext'
+import { hero } from '../data/siteContent'
 
 const container = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.15 },
+    transition: { staggerChildren: 0.08, delayChildren: 0.12 },
   },
 }
 
 const item = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0 },
+  hidden: { opacity: 0, y: 18 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
 }
 
 export default function Hero() {
-  const [carouselIndex, setCarouselIndex] = useState(0)
-
-  useEffect(() => {
-    const t = setInterval(() => {
-      setCarouselIndex((i) => (i + 1) % AGENDAQUI_IMAGES.length)
-    }, CAROUSEL_INTERVAL_MS)
-    return () => clearInterval(t)
-  }, [])
+  const { next } = useFullPage()
+  const [firstName, lastName] = hero.name.split(' ')
+  const [photoOk, setPhotoOk] = useState(Boolean(hero.photo))
 
   return (
-    <section className="relative min-h-screen flex flex-col px-4 sm:px-6 pt-24 pb-8 overflow-hidden">
-      <PerspectiveGridBackground />
-
-      <div className="relative max-w-6xl mx-auto w-full flex-1 flex flex-col justify-center z-10">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Coluna esquerda: nome + texto + CTAs + stats */}
+    <SectionShell number="01">
+      <div className="mx-auto flex min-h-full max-w-6xl flex-col justify-center">
+        <div className="grid items-center gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-6">
           <motion.div
-            className="text-center lg:text-left order-1"
+            className="text-left"
             variants={container}
             initial="hidden"
             animate="show"
           >
-            <div className="inline-block">
-              <motion.h1 className="neon-text" variants={item}>
-                {hero.name.toUpperCase()}
-              </motion.h1>
-              <motion.div className="neon-line" variants={item} />
-            </div>
             <motion.p
-              className="text-accent-secondary text-xl sm:text-2xl font-medium mt-4 mb-3"
               variants={item}
+              className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[11px] font-medium uppercase tracking-[0.22em] text-slate-400"
+            >
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.8)]" />
+              {hero.statusLabel}
+            </motion.p>
+
+            <motion.h1
+              variants={item}
+              className="font-display text-[clamp(2.4rem,7vw,5.4rem)] font-extrabold leading-[0.92] tracking-tight text-white"
+            >
+              {firstName}
+              <span className="block bg-gradient-to-r from-sky-300 via-cyan-300 to-indigo-400 bg-clip-text text-transparent">
+                {lastName}
+              </span>
+            </motion.h1>
+
+            <motion.div
+              variants={item}
+              className="mt-5 h-px w-24 bg-gradient-to-r from-accent-secondary to-transparent"
+            />
+
+            <motion.p
+              variants={item}
+              className="mt-5 text-lg font-medium text-accent-secondary sm:text-xl"
             >
               {hero.title}
             </motion.p>
             <motion.p
-              className="text-slate-300 text-base md:text-lg leading-relaxed mb-2"
               variants={item}
+              className="mt-3 max-w-xl text-base leading-relaxed text-slate-400"
             >
               {hero.subtitle}
             </motion.p>
-            <motion.p
-              className="text-slate-500 text-sm mb-6"
-              variants={item}
-            >
-              {hero.trustLine}
-            </motion.p>
-            <motion.ul
-              className="text-left max-w-md mx-auto lg:mx-0 mb-6 space-y-1.5 text-slate-400 text-sm"
-              variants={item}
-            >
-              {hero.highlights.map((line, i) => (
-                <li key={i} className="flex items-center gap-2">
-                  <span className="inline-flex items-center justify-center shrink-0 w-5 h-5 text-accent-primary" aria-hidden>
-                    <svg className="asterisco-spin w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 2L13.5 10.5L22 12L13.5 13.5L12 22L10.5 13.5L2 12L10.5 10.5L12 2Z" />
-                    </svg>
-                  </span>
+
+            <motion.ul variants={item} className="mt-5 space-y-2 text-sm text-slate-400">
+              {hero.highlights.map((line) => (
+                <li key={line} className="flex items-center gap-2">
+                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-primary" aria-hidden />
                   {line}
                 </li>
               ))}
             </motion.ul>
-            <motion.div
-              className="flex flex-wrap gap-3 justify-center lg:justify-start mb-8"
-              variants={item}
-            >
+
+            <motion.div variants={item} className="mt-8 flex flex-wrap gap-3">
               <Button href={hero.ctaPrimary.href} label={hero.ctaPrimary.label} variant="primary" />
               <Button href={hero.ctaSecondary.href} label={hero.ctaSecondary.label} variant="secondary" />
             </motion.div>
 
-            {/* 3 stats */}
-            <motion.div
-              className="grid grid-cols-3 gap-4 max-w-sm mx-auto lg:mx-0"
-              variants={item}
-            >
-              {hero.stats.map((stat, i) => (
+            <motion.p variants={item} className="mt-4 text-xs tracking-wide text-slate-500">
+              {hero.trustLine}
+            </motion.p>
+
+            <motion.div variants={item} className="mt-8 grid max-w-md grid-cols-3 gap-3">
+              {hero.stats.map((stat) => (
                 <div
-                  key={i}
-                  className="text-center lg:text-left py-3 px-2 rounded-lg border border-white/5 bg-white/[0.02]"
+                  key={stat.label}
+                  className="rounded-2xl border border-white/10 bg-white/[0.03] px-3 py-3"
                 >
-                  <div className="text-accent-secondary font-bold text-lg">{stat.value}</div>
-                  <div className="text-slate-500 text-xs mt-0.5">{stat.label}</div>
+                  <div className="font-display text-lg font-bold text-white">{stat.value}</div>
+                  <div className="mt-0.5 text-[11px] leading-tight text-slate-500">{stat.label}</div>
                 </div>
               ))}
             </motion.div>
           </motion.div>
 
-          {/* Coluna direita: card Agendaqui */}
           <motion.div
-            className="order-2"
-            initial={{ opacity: 0, y: 24 }}
+            className="relative mx-auto flex h-[min(56vh,460px)] w-full max-w-md items-end justify-center lg:h-[min(72vh,600px)] lg:max-w-none"
+            initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
+            transition={{ delay: 0.28, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
-            <a
-              href="#tecnologias"
-              className="block rounded-2xl border border-bg-cardBorder bg-bg-card/70 backdrop-blur-card overflow-hidden hover:border-accent-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-accent-primary/10"
-            >
-              {/* Carrossel de imagens do Agendaqui */}
-              <div className="relative h-36 sm:h-44 w-full overflow-hidden bg-black/30">
-                <div
-                  className="flex h-full transition-transform duration-500 ease-out"
-                  style={{
-                    width: `${AGENDAQUI_IMAGES.length * 100}%`,
-                    transform: `translateX(-${carouselIndex * (100 / AGENDAQUI_IMAGES.length)}%)`,
-                  }}
-                  aria-live="polite"
-                >
-                  {AGENDAQUI_IMAGES.map((src, i) => (
-                    <div
-                      key={src}
-                      className="h-full shrink-0 bg-black/20"
-                      style={{ width: `${100 / AGENDAQUI_IMAGES.length}%` }}
-                    >
-                      <img
-                        src={src}
-                        alt={`${agendaqui.name} - demonstração ${i + 1}`}
-                        className="h-full w-full object-cover object-top"
-                        loading={i === 0 ? 'eager' : 'lazy'}
-                      />
-                    </div>
-                  ))}
-                </div>
-                <div className="absolute bottom-1.5 left-1/2 -translate-x-1/2 flex gap-1">
-                  {AGENDAQUI_IMAGES.map((_, i) => (
-                    <span
-                      key={i}
-                      className={`h-1 rounded-full transition-all ${
-                        i === carouselIndex ? 'w-4 bg-white' : 'w-1 bg-white/50'
-                      }`}
-                      aria-hidden
-                    />
-                  ))}
+            {/* Glow ambiente por trás */}
+            <div
+              className="pointer-events-none absolute bottom-[6%] left-1/2 h-[78%] w-[82%] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(34,211,238,0.18)_0%,rgba(59,130,246,0.08)_40%,transparent_72%)] blur-3xl"
+              aria-hidden
+            />
+            <div
+              className="pointer-events-none absolute bottom-0 left-1/2 h-20 w-56 -translate-x-1/2 rounded-[100%] bg-cyan-400/15 blur-2xl"
+              aria-hidden
+            />
+
+            {photoOk ? (
+              <div className="hero-photo-wrap relative z-10 h-full w-full">
+                <img
+                  src={hero.photo}
+                  alt={hero.name}
+                  onError={() => setPhotoOk(false)}
+                  className="hero-photo h-full w-full object-contain object-bottom"
+                />
+                <HandTechPowers items={hero.techStackMarquee} />
+              </div>
+            ) : (
+              <div className="relative z-10 flex h-full w-full items-end justify-center">
+                <div className="mb-8 flex h-[85%] w-[70%] items-center justify-center rounded-[2rem] border border-dashed border-white/15 bg-white/[0.02] px-6 text-center">
+                  <p className="text-sm leading-relaxed text-slate-500">
+                    Coloque a foto sem fundo em
+                    <span className="mt-1 block font-mono text-accent-secondary">public/deyvison.png</span>
+                  </p>
                 </div>
               </div>
-              <div className="p-6 pt-4">
-              <div className="flex items-center gap-2 mb-3">
-                <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-accent-primary/20 text-accent-secondary">
-                  <span className="inline-flex items-center gap-1">
-                    <Star className="w-3.5 h-3.5" aria-hidden />
-                    <span>{agendaqui.badge}</span>
-                  </span>
-                </span>
-              </div>
-              <h3 className="font-display text-xl font-semibold text-white mb-2">
-                {agendaqui.name}
-              </h3>
-              <p className="text-slate-400 text-sm leading-relaxed mb-4">
-                {agendaqui.description}
-              </p>
-              <ul className="space-y-1.5 text-slate-500 text-xs">
-                {agendaqui.features.slice(0, 3).map((f, i) => (
-                  <li key={i} className="flex items-center gap-2">
-                    <span className="text-accent-primary">•</span>
-                    {f.replace(/^[^\w\s]+\s*/, '').trim() || f}
-                  </li>
-                ))}
-              </ul>
-              <p className="text-accent-secondary text-sm font-medium mt-4">
-                Ver projeto →
-              </p>
-              </div>
-            </a>
+            )}
           </motion.div>
         </div>
 
-        {/* Marquee tech stack */}
-        <TechMarquee items={hero.techStackMarquee} />
+        <button
+          type="button"
+          onClick={next}
+          className="mx-auto mt-8 hidden items-center gap-2 text-[11px] font-medium uppercase tracking-[0.28em] text-slate-500 transition-colors hover:text-white lg:flex"
+        >
+          {hero.scrollHint}
+          <ArrowDown className="h-3.5 w-3.5 animate-bounce" />
+        </button>
       </div>
-    </section>
+    </SectionShell>
   )
 }

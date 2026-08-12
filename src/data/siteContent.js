@@ -1,65 +1,67 @@
 /**
- * Conteúdo centralizado do portfólio.
- * Edite aqui para alterar textos, links e projetos sem mexer nos componentes.
+ * Conteúdo do portfólio.
+ * Textos, links e projetos ficam aqui para facilitar manutenção e escala.
  */
 
 export const hero = {
   name: 'Deyvison Chaves',
-  title: 'Desenvolvedor Web & Automação',
+  title: 'Desenvolvedor Web e Automação',
   subtitle:
-    'Desenvolvo sistemas e automações que economizam tempo, reduzem custos e aumentam resultados.',
-  trustLine: '• Atendimento direto • Projetos sob medida • Suporte pós-entrega',
+    'Desenvolvo sistemas, automações e integrações sob medida, com atenção a performance, praticidade e resultado no dia a dia do negócio.',
+  trustLine: 'Atendimento direto, projetos personalizados e suporte após a entrega',
   highlights: [
-    'Especialista em sistemas web, automação e integração',
-    'Foco em performance, praticidade e crescimento',
+    'Sistemas web, automação e integração',
+    'Python, ADB e desenvolvimento full stack',
   ],
-  ctaPrimary: { label: 'Ver Projetos', href: '#tecnologias' },
-  ctaSecondary: { label: 'Entrar em Contato', href: '#contato' },
+  ctaPrimary: { label: 'Ver projetos', href: '#projetos' },
+  ctaSecondary: { label: 'Entrar em contato', href: '#contato' },
   stats: [
     { value: '5+', label: 'Projetos entregues' },
-    { value: '100%', label: 'Foco em resultado' },
-    { value: 'Full-stack', label: 'Web & Automação' },
+    { value: 'Full stack', label: 'Web e automação' },
+    { value: 'Direto', label: 'Atendimento comigo' },
   ],
   techStackMarquee: [
     'HTML', 'CSS', 'JavaScript', 'Vue', 'React', 'Vuetify', 'Tailwind', 'Node.js', 'Python',
-    'APIs REST', 'WhatsApp API', 'ADB', 'Git', 'Docker', 'Redis', 'MongoDB', 'VPS', 'Linux',
+    'APIs REST', 'WhatsApp API', 'ADB', 'Git', 'Docker', 'Redis', 'MongoDB', 'VPS',
   ],
+  photo: '/deyvison.png?v=4',
+  statusLabel: 'Disponível para novos projetos',
+  scrollHint: 'Role para ver mais',
 }
 
 export const about = {
-  title: 'Sobre Mim',
+  title: 'Sobre mim',
   paragraphs: [
-    'Sou desenvolvedor com atuação em suporte técnico e desenvolvimento de sistemas, focado em criar soluções práticas, modernas e escaláveis.',
-    'Atuo desenvolvendo aplicações web, automações e ferramentas que otimizam processos, reduzem custos e aumentam a produtividade.',
+    'Trabalho com suporte técnico e desenvolvimento de sistemas. Gosto de construir soluções práticas, organizadas e fáceis de evoluir.',
+    'Hoje desenvolvo aplicações web, automações e ferramentas que ajudam a reduzir trabalho manual, cortar custos e melhorar o fluxo das equipes.',
   ],
-  atuacao: 'Suporte + Dev',
-  chips: ['Automação', 'Sistemas Web'],
-  commitmentTitle: 'Meu compromisso é entregar projetos com:',
-  commitments: ['Qualidade', 'Organização', 'Performance', 'Foco em resultado'],
+  atuacao: 'Suporte e desenvolvimento',
+  chips: ['Automação', 'Sistemas web'],
+  commitmentTitle: 'No que eu me comprometo',
+  commitments: ['Qualidade', 'Organização', 'Performance', 'Resultado'],
   proofSocial: [
     'Projetos para empresas locais',
-    'Sistemas internos corporativos',
+    'Sistemas internos de empresas',
     'Ferramentas próprias',
   ],
-  proofCount: '+5 projetos reais entregues',
+  proofCount: 'Mais de 5 projetos entregues',
 }
 
 export const diferenciais = {
   title: 'Diferenciais',
   items: [
-    'Visão técnica + visão de negócio',
-    'Comunicação clara e objetiva',
+    'Olho técnico e também de negócio',
+    'Comunicação clara, sem enrolação',
     'Entregas organizadas e documentadas',
-    'Soluções sob medida',
-    'Suporte e acompanhamento pós-entrega',
+    'Soluções feitas para o seu contexto',
+    'Acompanhamento depois da entrega',
   ],
-  compromissoTitle: 'Compromisso',
-  compromisso: ['Qualidade', 'Performance', 'Organização', 'Foco em resultado', 'Compromisso', 'Transparência'],
+  compromissoTitle: 'Como eu trabalho',
+  compromisso: ['Qualidade', 'Performance', 'Organização', 'Resultado', 'Transparência', 'Compromisso'],
 }
 
-/** Referência do stack por categoria (opcional; a UI usa techStackShowcase.allTech). */
 export const skills = {
-  title: 'Tecnologias & Skills',
+  title: 'Tecnologias',
   groups: [
     {
       icon: 'frontend',
@@ -74,17 +76,16 @@ export const skills = {
     {
       icon: 'automation',
       label: 'Automação',
-      items: ['ADB', 'Scripts', 'Bots', 'Automação Web', 'Integrações de Sistemas'],
+      items: ['ADB', 'Scripts', 'Bots', 'Automação web', 'Integrações'],
     },
     {
       icon: 'tools',
-      label: 'Ferramentas & Infra',
-      items: ['Git', 'GitHub', 'VPS', 'Deploy', 'Linux', 'Windows Server'],
+      label: 'Ferramentas e infra',
+      items: ['Git', 'GitHub', 'VPS', 'Deploy', 'Windows Server'],
     },
   ],
 }
 
-/** Lista plana de tecnologias para o showcase (esquerda). Cada projeto usa um subconjunto em `tech`. */
 export const techStackShowcase = {
   allTech: [
     'HTML', 'CSS', 'JavaScript',
@@ -94,74 +95,54 @@ export const techStackShowcase = {
 }
 
 export const projects = {
-  title: 'Projetos em Destaque',
+  title: 'Projetos',
   items: [
     {
       id: 'agendaqui',
-      name: 'Agendaqui',
-      badge: 'Projeto Principal',
+      name: 'Aidate',
+      badge: 'Projeto principal',
       description:
-        'Plataforma completa para agendamento inteligente de serviços, focada em otimizar o atendimento e reduzir faltas.',
+        'Plataforma de agendamento de serviços, pensada para organizar o atendimento e reduzir faltas.',
       features: [
-        'Agendamento online automatizado',
-        'Seleção de profissionais e serviços',
-        'Lembretes via WhatsApp',
-        'Dashboard gerencial',
+        'Agendamento online',
+        'Escolha de profissionais e serviços',
+        'Lembretes no WhatsApp',
+        'Painel de gestão',
         'Relatórios de desempenho',
       ],
-      result: 'Mais organização, menos faltas e mais produtividade para empresas.',
+      result: 'Mais organização no dia a dia, menos faltas e melhor aproveitamento da agenda.',
       tech: ['Vue', 'Vuetify', 'JavaScript', 'Node.js', 'WhatsApp', 'GitHub', 'Docker', 'Redis', 'MongoDB'],
-      demoUrl: null,
+      demoUrl: 'https://aidate.com.br/',
       githubUrl: null,
     },
     {
-      id: 'autozap',
-      name: 'AutoZap',
+      id: 'aibox',
+      name: 'Aibox',
       badge: null,
       description:
-        'Sistema de automação para WhatsApp com IA e Multichat com Multi Instâncias.',
+        'Aplicação em Python com ADB Platform Tools para gerenciar e automatizar dispositivos Android.',
       features: [
-        'Automação com IA',
-        'Multichat e multi instâncias',
-        'Integração WhatsApp',
-        'Backend escalável',
+        'Feito em Python',
+        'Integração com ADB Platform Tools',
       ],
       result: null,
-      tech: ['Vue', 'Vuetify', 'JavaScript', 'Node.js', 'MongoDB', 'Docker', 'Redis', 'WhatsApp', 'GitHub'],
+      tech: ['Python', 'ADB'],
       demoUrl: null,
       githubUrl: null,
     },
     {
-      id: 'adb-logger',
-      name: 'ADB Logger',
-      badge: null,
-      description: 'Sistema para debug e gerenciamento de dispositivos Android via ADB.',
-      features: ['Coleta de logs', 'Gerenciamento de aplicativos', 'Manutenção básica', 'Integração com Platform Tools'],
-      result: null,
-      tech: ['Python', 'ADB', 'GitHub'],
-      demoUrl: null,
-      githubUrl: null,
-    },
-    {
-      id: 'intelite-credenciais',
-      name: 'Sistema de Cadastro de Credenciais (Intelite)',
-      badge: null,
-      description: 'Plataforma para controle seguro de acessos e senhas corporativas.',
-      features: ['Gestão de usuários', 'Configuração de credenciais', 'Integração com totens', 'Interface moderna'],
-      result: null,
-      tech: ['React', 'Tailwind', 'JavaScript', 'Node.js', 'GitHub'],
-      demoUrl: null,
-      githubUrl: null,
-    },
-    {
-      id: 'screnoid',
-      name: 'Screnoid',
+      id: 'feedback-intelite',
+      name: 'Feedback Intelite',
       badge: null,
       description:
-        'Aplicação desktop para gravação de tela e uso como segunda tela em mini PCs Android.',
-      features: ['Screen recording', 'Segunda tela via ADB', 'Interface amigável', 'Integração nativa'],
+        'Sistema para gestão de equipe, com acompanhamento e registro de feedbacks entre colaboradores.',
+      features: [
+        'Gestão de equipe',
+        'Acompanhamento de colaboradores',
+        'Registro de feedbacks',
+      ],
       result: null,
-      tech: ['Python', 'ADB', 'Git', 'GitHub'],
+      tech: ['JavaScript', 'Node.js', 'GitHub'],
       demoUrl: null,
       githubUrl: null,
     },
@@ -169,8 +150,13 @@ export const projects = {
       id: 'intelitehub',
       name: 'InteliteHub',
       badge: null,
-      description: 'Repositório interno para aplicações, tutoriais e documentação técnica.',
-      features: ['Centralização de conteúdo', 'Organização de projetos', 'Padronização interna', 'Base de conhecimento'],
+      description: 'Central interna de aplicações, tutoriais e documentação técnica.',
+      features: [
+        'Conteúdo em um só lugar',
+        'Organização de projetos',
+        'Padronização interna',
+        'Base de conhecimento',
+      ],
       result: null,
       tech: ['HTML', 'CSS', 'JavaScript', 'Node.js', 'Git', 'GitHub'],
       demoUrl: null,
@@ -181,46 +167,41 @@ export const projects = {
 
 export const experience = {
   title: 'Experiência',
-  path: 'Suporte Técnico → Desenvolvimento → Automação',
+  path: 'Suporte técnico, desenvolvimento e automação',
+  steps: ['Suporte técnico', 'Desenvolvimento', 'Automação'],
   paragraphs: [
-    'Iniciei atuando em suporte técnico, evoluindo para desenvolvimento de sistemas e automações, sempre focado em entregar soluções completas.',
-    'Hoje, atuo integrando tecnologia, performance e estratégia para gerar valor real aos projetos.',
+    'Comecei no suporte técnico e fui migrando para desenvolvimento de sistemas e automações, sempre com o objetivo de entregar algo completo e útil.',
+    'Hoje junto código, processo e prática para montar soluções que realmente ajudam no trabalho das pessoas.',
   ],
   highlights: [
     'Otimização de processos',
     'Automação de rotinas',
     'Desenvolvimento web',
   ],
+  focusTitle: 'O que faço hoje',
 }
 
 export const testimonial = {
   title: 'Depoimento',
-  quote: 'Profissional dedicado, organizado e comprometido com resultados.',
-  author: '(Espaço reservado para futuros clientes.)',
+  quote: 'Profissional dedicado, organizado e comprometido com o que entrega.',
+  author: 'Espaço reservado para próximos clientes',
   enabled: false,
 }
 
-// Preencha com seus dados reais antes de publicar:
-// - WhatsApp: href no formato https://wa.me/55DDDNUMERO (ex: 5581999999999)
-// - E-mail: href no formato mailto:seu@email.com
-// - LinkedIn: URL do seu perfil
-// - GitHub: URL do seu perfil
-// - cta.href: normalmente o mesmo link do WhatsApp
 export const contact = {
   title: 'Contato',
-  headline: 'Vamos transformar sua ideia em um projeto real?',
-  subtitle:
-    'Estou pronto para desenvolver sua solução com qualidade, agilidade e foco em resultado.',
+  headline: 'Quer conversar sobre um projeto?',
+  subtitle: 'Posso ajudar a tirar sua ideia do papel com organização e atenção ao que realmente importa.',
   channels: [
     { icon: 'whatsapp', label: 'WhatsApp', value: '(83) 9328-3219', href: 'https://wa.me/558393283219' },
     { icon: 'email', label: 'E-mail', value: 'deyvisonchaves@gmail.com', href: 'mailto:deyvisonchaves@gmail.com' },
-    { icon: 'linkedin', label: 'LinkedIn', value: '(adicione aqui)', href: 'https://linkedin.com/in/seu-perfil' },
+    { icon: 'linkedin', label: 'LinkedIn', value: 'deyvison-chaves', href: 'https://www.linkedin.com/in/deyvison-chaves-70360436b/' },
     { icon: 'github', label: 'GitHub', value: 'ChavesSD', href: 'https://github.com/ChavesSD' },
   ],
-  cta: { label: 'Fale Comigo Agora', href: 'https://wa.me/558393283219' },
-  ctaHeadline: 'Pronto para tirar seu projeto do papel?',
-  ctaText: 'Vamos transformar sua ideia em resultado. Sem burocracia, com atendimento direto.',
-  conversionPhrase: 'Resposta rápida • Atendimento direto • Sem burocracia',
+  cta: { label: 'Falar comigo', href: 'https://wa.me/558393283219' },
+  ctaHeadline: 'Vamos conversar?',
+  ctaText: 'Me chama no WhatsApp ou no e-mail. Atendimento direto, sem burocracia.',
+  conversionPhrase: 'Resposta rápida, atendimento direto e sem burocracia',
   guaranteePhrase: [
     'Orçamento sem compromisso',
     'Atendimento direto comigo',
@@ -235,13 +216,20 @@ export const contact = {
 export const footer = {
   year: 2026,
   name: 'Deyvison Chaves',
-  tagline: 'Desenvolvedor Web & Automação',
+  tagline: 'Desenvolvedor Web e Automação',
   rights: 'Todos os direitos reservados.',
-  available: 'Disponível para projetos em 2026',
+  available: 'Aberto a novos projetos em 2026',
   links: [
     { label: 'WhatsApp', href: 'https://wa.me/558393283219' },
-    { label: 'LinkedIn', href: 'https://linkedin.com/in/seu-perfil' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/deyvison-chaves-70360436b/' },
     { label: 'GitHub', href: 'https://github.com/ChavesSD' },
     { label: 'E-mail', href: 'mailto:deyvisonchaves@gmail.com' },
   ],
+}
+
+export const sectionLabels = {
+  sobre: '02 Sobre',
+  projetos: '03 Projetos',
+  experiencia: '04 Experiência',
+  contato: '05 Contato',
 }

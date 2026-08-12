@@ -1,28 +1,19 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { techStackShowcase, projects } from '../data/siteContent'
 import { Star } from 'lucide-react'
+import SectionShell from '../components/SectionShell'
+import { techStackShowcase, projects, sectionLabels } from '../data/siteContent'
 import { getTechIconUrl } from '../utils/techIcons'
 
 const projectItems = projects.items
 const total = projectItems.length
 
-const AGENDAQUI_IMAGES = [1, 2, 3].map((n) => `/Agendaqui/${n}.png`)
-const AUTOZAP_IMAGES = [1, 2, 3].map((n) => `/AutoZap/${n}.png`)
-const CREDENCIAIS_IMAGES = [1, 2, 3].map((n) => `/Credenciais/${n}.png`)
-const SCREENOID_IMAGES = [1, 2, 3].map((n) => `/Screenoid/${n}.png`)
-const ADB_LOGGER_IMAGES = [1, 2, 3].map((n) => `/ADB%20Logger/${n}.png`)
-const INTELITEHUB_IMAGES = [1].map((n) => `/InteliteHub/${n}.png`)
-const CAROUSEL_INTERVAL_MS = 4000
-
 const PROJECT_CAROUSEL_IMAGES = {
-  agendaqui: AGENDAQUI_IMAGES,
-  autozap: AUTOZAP_IMAGES,
-  'intelite-credenciais': CREDENCIAIS_IMAGES,
-  screnoid: SCREENOID_IMAGES,
-  'adb-logger': ADB_LOGGER_IMAGES,
-  intelitehub: INTELITEHUB_IMAGES,
+  agendaqui: [1, 2, 3].map((n) => `/Agendaqui/${n}.png`),
+  intelitehub: [1].map((n) => `/InteliteHub/${n}.png`),
 }
+
+const CAROUSEL_INTERVAL_MS = 4000
 
 export default function TechShowcase() {
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -32,50 +23,53 @@ export default function TechShowcase() {
   const carouselImages = PROJECT_CAROUSEL_IMAGES[project.id] ?? null
   const hasCarousel = !!carouselImages
 
-  // Carrossel automático quando o projeto tem galeria
   useEffect(() => {
-    if (!carouselImages) return
+    if (!carouselImages) return undefined
     const t = setInterval(() => {
       setCarouselImageIndex((i) => (i + 1) % carouselImages.length)
     }, CAROUSEL_INTERVAL_MS)
     return () => clearInterval(t)
   }, [currentIndex, carouselImages])
 
-  // Reset do carrossel ao trocar de projeto
-  useEffect(() => {
-    if (hasCarousel) setCarouselImageIndex(0)
-  }, [currentIndex])
+  const selectProject = (i) => {
+    setCurrentIndex(i)
+    setCarouselImageIndex(0)
+  }
 
-  const goPrev = () => setCurrentIndex((i) => (i <= 0 ? total - 1 : i - 1))
-  const goNext = () => setCurrentIndex((i) => (i >= total - 1 ? 0 : i + 1))
+  const goPrev = () => selectProject(currentIndex <= 0 ? total - 1 : currentIndex - 1)
+  const goNext = () => selectProject(currentIndex >= total - 1 ? 0 : currentIndex + 1)
 
   return (
-    <section className="relative py-12 sm:py-14 px-4 sm:px-6" id="tecnologias">
-      <div className="section-bg-grid" aria-hidden />
-      {/* Divider com glow */}
-      <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-2xl h-px opacity-50"
-        style={{
-          background: 'linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.35), transparent)',
-          boxShadow: '0 0 10px rgba(96, 165, 250, 0.15)',
-        }}
-      />
-      <div className="max-w-6xl mx-auto">
-        <motion.h2
-          className="font-display font-bold text-2xl sm:text-3xl text-accent-primary mb-8"
+    <SectionShell number="03">
+      <div className="mx-auto flex min-h-full max-w-6xl flex-col justify-center">
+        <motion.p
+          className="mb-3 font-mono text-[11px] tracking-[0.28em] text-accent-secondary"
           initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          animate={{ opacity: 1, y: 0 }}
         >
-          Stack & Projetos
+          {sectionLabels.projetos}
+        </motion.p>
+        <motion.h2
+          className="mb-8 font-display text-3xl font-bold tracking-tight text-white sm:text-5xl"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          Stack e projetos
         </motion.h2>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.15fr] gap-8 lg:gap-10 items-start">
-          {/* Coluna esquerda: chips (no mobile fica embaixo) */}
-          <div className="order-2 lg:order-1">
-            <p className="text-slate-500 text-sm mb-4">
-              Stack do projeto selecionado em destaque
+        <div className="grid items-stretch gap-6 lg:grid-cols-2">
+          {/* Painel esquerdo: stack + lista de projetos */}
+          <motion.article
+            className="flex h-full flex-col rounded-3xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-md sm:p-7"
+            initial={{ opacity: 0, x: -24 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.08 }}
+          >
+            <h3 className="mb-2 font-display text-xl font-semibold text-white">Stack</h3>
+            <p className="mb-4 text-sm text-slate-500">
+              As tecnologias do projeto selecionado aparecem em destaque
             </p>
+
             <div className="flex flex-wrap gap-2">
               {techStackShowcase.allTech.map((tech) => {
                 const used = projectTech.includes(tech)
@@ -83,16 +77,16 @@ export default function TechShowcase() {
                 return (
                   <span
                     key={tech}
-                    className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium border transition-all duration-300 ${
+                    className={`inline-flex items-center gap-1.5 rounded-lg border px-3 py-2 text-sm font-medium transition-all duration-300 ${
                       used
-                        ? 'opacity-100 border-accent-primary/50 bg-accent-primary/10 text-sky-200 shadow-[0_0_15px_rgba(59,130,246,0.2)]'
-                        : 'opacity-35 border-white/10 bg-white/5 text-slate-400 hover:opacity-50'
+                        ? 'border-accent-primary/50 bg-accent-primary/10 text-sky-200 shadow-[0_0_15px_rgba(59,130,246,0.2)] opacity-100'
+                        : 'border-white/10 bg-white/5 text-slate-400 opacity-35 hover:opacity-50'
                     }`}
                   >
                     {iconUrl ? (
-                      <img src={iconUrl} alt="" className="w-4 h-4 object-contain shrink-0" loading="lazy" />
+                      <img src={iconUrl} alt="" className="h-4 w-4 shrink-0 object-contain" loading="lazy" />
                     ) : (
-                      <span className="w-4 h-4 rounded bg-white/10 flex items-center justify-center text-[10px] font-bold shrink-0">
+                      <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded bg-white/10 text-[10px] font-bold">
                         {tech.charAt(0)}
                       </span>
                     )}
@@ -101,202 +95,201 @@ export default function TechShowcase() {
                 )
               })}
             </div>
-          </div>
 
-          {/* Coluna direita: card do projeto + setas (no mobile fica primeiro) */}
-          <div className="order-1 lg:order-2">
-            <div className="relative rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-[12px] overflow-hidden min-h-[340px] transform transition-transform duration-300 hover:scale-[1.02]">
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.div
-                  key={currentIndex}
-                  initial={{ opacity: 0, scale: 0.97 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.98 }}
-                  transition={{ duration: 0.3, ease: 'easeOut' }}
-                  className="p-0"
-                >
-                  {/* Área de demonstração: carrossel de imagens ou placeholder */}
-                  {hasCarousel ? (
-                    <div className="relative h-44 sm:h-52 w-full border-b border-white/10 overflow-hidden bg-black/30">
-                      <div
-                        className="flex h-full transition-transform duration-500 ease-out"
-                        style={{
-                          width: `${carouselImages.length * 100}%`,
-                          transform: `translateX(-${carouselImageIndex * (100 / carouselImages.length)}%)`,
-                        }}
-                        aria-live="polite"
-                        aria-label={`Imagem ${carouselImageIndex + 1} de ${carouselImages.length}`}
-                      >
-                        {carouselImages.map((src, i) => (
-                          <div
-                            key={src}
-                            className="h-full shrink-0 bg-black/20"
-                            style={{ width: `${100 / carouselImages.length}%` }}
-                          >
-                            <img
-                              src={src}
-                              alt={`${project.name} - demonstração ${i + 1}`}
-                              className="h-full w-full object-cover object-top"
-                              loading={i === 0 ? 'eager' : 'lazy'}
-                            />
-                          </div>
-                        ))}
-                      </div>
-                      {/* Navegação do carrossel de imagens */}
+            <div className="mt-auto border-t border-white/[0.08] pt-5">
+              <p className="mb-3 text-xs font-medium uppercase tracking-[0.18em] text-slate-500">
+                Projetos
+              </p>
+              <ul className="space-y-2">
+                {projectItems.map((item, i) => {
+                  const active = i === currentIndex
+                  return (
+                    <li key={item.id}>
                       <button
                         type="button"
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          setCarouselImageIndex((i) => (i - 1 + carouselImages.length) % carouselImages.length)
-                        }}
-                        className="absolute left-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-black/50 text-white/90 hover:bg-black/70 hover:text-white transition-colors"
-                        aria-label="Imagem anterior"
+                        onClick={() => selectProject(i)}
+                        className={`flex w-full items-center gap-3 rounded-xl border px-3 py-2.5 text-left transition-all ${
+                          active
+                            ? 'border-accent-primary/40 bg-accent-primary/10 text-white'
+                            : 'border-white/[0.06] bg-black/20 text-slate-400 hover:border-white/15 hover:text-slate-200'
+                        }`}
                       >
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                        </svg>
-                      </button>
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          setCarouselImageIndex((i) => (i + 1) % carouselImages.length)
-                        }}
-                        className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-black/50 text-white/90 hover:bg-black/70 hover:text-white transition-colors"
-                        aria-label="Próxima imagem"
-                      >
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </button>
-                      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">
-                        {carouselImages.map((_, i) => (
-                          <button
-                            key={i}
-                            type="button"
-                            onClick={(e) => {
-                              e.stopPropagation()
-                              setCarouselImageIndex(i)
-                            }}
-                            className={`h-1.5 rounded-full transition-all ${
-                              i === carouselImageIndex ? 'w-5 bg-white' : 'w-1.5 bg-white/50 hover:bg-white/70'
-                            }`}
-                            aria-label={`Ir para imagem ${i + 1}`}
-                            aria-current={i === carouselImageIndex}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                  ) : (
-                    <div
-                      className="h-28 w-full bg-gradient-to-br from-accent-primary/15 via-white/5 to-accent-secondary/10 border-b border-white/10"
-                      aria-hidden
-                    />
-                  )}
-                  <div className="p-6 sm:p-7">
-                    <div className="flex flex-wrap items-center gap-2 mb-3">
-                      {project.badge && (
-                        <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300">
-                          <span className="inline-flex items-center gap-1">
-                            <Star className="w-3.5 h-3.5" aria-hidden />
-                            <span>{project.badge}</span>
-                          </span>
-                        </span>
-                      )}
-                      <h3 className="font-display font-semibold text-2xl text-white">
-                        {project.name}
-                      </h3>
-                    </div>
-                    <p className="text-white/80 text-sm leading-relaxed mb-3">
-                      {project.description}
-                    </p>
-                    {project.result && (
-                      <p className="text-accent-secondary/90 text-sm font-medium mb-4">
-                        Resultado: {project.result}
-                      </p>
-                    )}
-                    <ul className="space-y-1.5 mb-4 text-sm text-white/75">
-                      {project.features.slice(0, 3).map((f, i) => (
-                        <li key={i} className="flex items-center gap-2">
-                          <span className="text-accent-primary">▹</span>
-                          {typeof f === 'string' ? (f.replace(/^[^\w\s]+\s*/, '').trim() || f) : f}
-                        </li>
-                      ))}
-                    </ul>
-                    <div className="flex flex-wrap gap-1.5 mb-5">
-                      {projectTech.map((t) => (
                         <span
-                          key={t}
-                          className="px-2 py-0.5 rounded bg-white/10 text-slate-400 text-xs"
+                          className={`font-mono text-[11px] tracking-wider ${
+                            active ? 'text-accent-secondary' : 'text-slate-600'
+                          }`}
                         >
-                          {t}
+                          {String(i + 1).padStart(2, '0')}
                         </span>
+                        <span className="min-w-0 flex-1 truncate text-sm font-medium">{item.name}</span>
+                        {item.badge && (
+                          <Star className="h-3.5 w-3.5 shrink-0 text-amber-300" aria-hidden />
+                        )}
+                      </button>
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+          </motion.article>
+
+          {/* Painel direito: detalhe do projeto */}
+          <motion.article
+            className="relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] backdrop-blur-md"
+            initial={{ opacity: 0, x: 24 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.12 }}
+          >
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={currentIndex}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.28, ease: 'easeOut' }}
+                className="flex h-full flex-col"
+              >
+                {hasCarousel ? (
+                  <div className="relative h-40 w-full shrink-0 overflow-hidden border-b border-white/10 bg-black/30 sm:h-44">
+                    <div
+                      className="flex h-full transition-transform duration-500 ease-out"
+                      style={{
+                        width: `${carouselImages.length * 100}%`,
+                        transform: `translateX(-${carouselImageIndex * (100 / carouselImages.length)}%)`,
+                      }}
+                    >
+                      {carouselImages.map((src, i) => (
+                        <div
+                          key={src}
+                          className="h-full shrink-0"
+                          style={{ width: `${100 / carouselImages.length}%` }}
+                        >
+                          <img
+                            src={src}
+                            alt={`${project.name} - demonstração ${i + 1}`}
+                            className="h-full w-full object-cover object-top"
+                            loading={i === 0 ? 'eager' : 'lazy'}
+                          />
+                        </div>
                       ))}
                     </div>
-                    <div className="flex flex-wrap gap-2">
-                      <a
-                        href="#tecnologias"
-                        className="inline-flex items-center justify-center px-5 py-2.5 rounded-xl bg-accent-primary/25 border border-accent-primary/50 text-accent-secondary font-medium text-sm shadow-[0_0_20px_rgba(59,130,246,0.2)] hover:bg-accent-primary/35 hover:shadow-[0_0_25px_rgba(59,130,246,0.3)] transition-all duration-300 scale-100 hover:scale-[1.02]"
-                      >
-                        Ver detalhes
-                      </a>
-                    {project.githubUrl && (
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center px-4 py-2 rounded-lg border border-white/20 text-white/80 text-sm hover:bg-white/10 transition-colors"
-                      >
-                        GitHub
-                      </a>
+                    {carouselImages.length > 1 && (
+                      <>
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            setCarouselImageIndex(
+                              (i) => (i - 1 + carouselImages.length) % carouselImages.length
+                            )
+                          }}
+                          className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-1.5 text-white/90 hover:bg-black/70"
+                          aria-label="Imagem anterior"
+                        >
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                          </svg>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            setCarouselImageIndex((i) => (i + 1) % carouselImages.length)
+                          }}
+                          className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-1.5 text-white/90 hover:bg-black/70"
+                          aria-label="Próxima imagem"
+                        >
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </button>
+                      </>
                     )}
-                    {project.demoUrl && (
+                  </div>
+                ) : (
+                  <div className="h-28 w-full shrink-0 border-b border-white/10 bg-gradient-to-br from-accent-primary/15 via-white/5 to-accent-secondary/10" />
+                )}
+
+                <div className="flex flex-1 flex-col p-6 sm:p-7">
+                  <div className="mb-3 flex flex-wrap items-center gap-2">
+                    {project.badge && (
+                      <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/20 px-2.5 py-1 text-xs font-semibold text-amber-300">
+                        <Star className="h-3.5 w-3.5" />
+                        {project.badge}
+                      </span>
+                    )}
+                    <h3 className="font-display text-2xl font-semibold text-white">{project.name}</h3>
+                  </div>
+                  <p className="mb-3 text-sm leading-relaxed text-slate-300">{project.description}</p>
+                  {project.result && (
+                    <p className="mb-4 text-sm font-medium text-accent-secondary">
+                      Resultado: {project.result}
+                    </p>
+                  )}
+                  <ul className="mb-4 space-y-1.5 text-sm text-slate-400">
+                    {project.features.slice(0, 3).map((f) => (
+                      <li key={f} className="flex items-center gap-2">
+                        <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-accent-primary" />
+                        {typeof f === 'string' ? f.replace(/^[^\w\s]+\s*/, '').trim() || f : f}
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mb-5 flex flex-wrap gap-1.5">
+                    {projectTech.map((t) => (
+                      <span key={t} className="rounded bg-white/10 px-2 py-0.5 text-xs text-slate-400">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-2">
+                    {project.demoUrl ? (
                       <a
                         href={project.demoUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center px-4 py-2 rounded-lg border border-white/20 text-white/80 text-sm hover:bg-white/10 transition-colors"
+                        className="inline-flex items-center gap-2 rounded-xl border border-accent-primary/50 bg-accent-primary/20 px-4 py-2 text-sm font-medium text-accent-secondary transition-colors hover:bg-accent-primary/30"
                       >
-                        Demo
+                        Acessar projeto
+                        <span aria-hidden>→</span>
                       </a>
+                    ) : (
+                      <span />
                     )}
+                    <div className="flex items-center gap-3">
+                      <span className="font-mono text-sm tabular-nums text-slate-500">
+                        {String(currentIndex + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
+                      </span>
+                      <div className="flex gap-1">
+                        <button
+                          type="button"
+                          onClick={goPrev}
+                          className="rounded-lg border border-white/15 bg-white/5 p-2 text-white/80 hover:bg-white/10"
+                          aria-label="Projeto anterior"
+                        >
+                          <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                          </svg>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={goNext}
+                          className="rounded-lg border border-white/15 bg-white/5 p-2 text-white/80 hover:bg-white/10"
+                          aria-label="Próximo projeto"
+                        >
+                          <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                  </div>
-                </motion.div>
-              </AnimatePresence>
-
-              {/* Setas + indicador */}
-              <div className="absolute bottom-4 right-4 flex items-center gap-3">
-                <span className="text-slate-500 text-sm tabular-nums">
-                  {currentIndex + 1} / {total}
-                </span>
-                <div className="flex gap-1">
-                  <button
-                    type="button"
-                    onClick={goPrev}
-                    className="p-2 rounded-lg border border-white/15 bg-white/5 text-white/80 hover:bg-white/10 hover:text-white transition-colors"
-                    aria-label="Projeto anterior"
-                  >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                    </svg>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={goNext}
-                    className="p-2 rounded-lg border border-white/15 bg-white/5 text-white/80 hover:bg-white/10 hover:text-white transition-colors"
-                    aria-label="Próximo projeto"
-                  >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </button>
                 </div>
-              </div>
-            </div>
-          </div>
+              </motion.div>
+            </AnimatePresence>
+          </motion.article>
         </div>
       </div>
-    </section>
+    </SectionShell>
   )
 }
