@@ -3,7 +3,7 @@ export default function SectionShell({ number, children, className = '' }) {
     <section className={`relative h-full min-h-dvh w-full lg:min-h-0 ${className}`}>
       <div
         data-scrollable
-        className="relative z-10 h-full overflow-x-hidden overflow-y-auto px-5 pb-24 pt-20 sm:px-8 lg:px-14 lg:pb-10 lg:pt-10"
+        className="relative z-10 flex h-full min-h-full flex-col items-center justify-center overflow-x-hidden overflow-y-auto px-5 py-24 sm:px-8 lg:px-10 lg:py-12"
       >
         {children}
       </div>

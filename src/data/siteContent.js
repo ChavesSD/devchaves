@@ -7,19 +7,9 @@ export const hero = {
   name: 'Deyvison Chaves',
   title: 'Desenvolvedor Web e Automação',
   subtitle:
-    'Desenvolvo sistemas, automações e integrações sob medida, com atenção a performance, praticidade e resultado no dia a dia do negócio.',
-  trustLine: 'Atendimento direto, projetos personalizados e suporte após a entrega',
-  highlights: [
-    'Sistemas web, automação e integração',
-    'Python, ADB e desenvolvimento full stack',
-  ],
+    'Sistemas, automações e integrações sob medida para o dia a dia do negócio.',
   ctaPrimary: { label: 'Ver projetos', href: '#projetos' },
   ctaSecondary: { label: 'Entrar em contato', href: '#contato' },
-  stats: [
-    { value: '5+', label: 'Projetos entregues' },
-    { value: 'Full stack', label: 'Web e automação' },
-    { value: 'Direto', label: 'Atendimento comigo' },
-  ],
   techStackMarquee: [
     'HTML', 'CSS', 'JavaScript', 'Vue', 'React', 'Vuetify', 'Tailwind', 'Node.js', 'Python',
     'APIs REST', 'WhatsApp API', 'ADB', 'Git', 'Docker', 'Redis', 'MongoDB', 'VPS',
@@ -32,32 +22,20 @@ export const hero = {
 export const about = {
   title: 'Sobre mim',
   paragraphs: [
-    'Trabalho com suporte técnico e desenvolvimento de sistemas. Gosto de construir soluções práticas, organizadas e fáceis de evoluir.',
-    'Hoje desenvolvo aplicações web, automações e ferramentas que ajudam a reduzir trabalho manual, cortar custos e melhorar o fluxo das equipes.',
+    'Comecei no suporte técnico e hoje desenvolvo aplicações web, automações e ferramentas que reduzem trabalho manual e melhoram o fluxo das equipes.',
   ],
-  atuacao: 'Suporte e desenvolvimento',
-  chips: ['Automação', 'Sistemas web'],
-  commitmentTitle: 'No que eu me comprometo',
-  commitments: ['Qualidade', 'Organização', 'Performance', 'Resultado'],
-  proofSocial: [
-    'Projetos para empresas locais',
-    'Sistemas internos de empresas',
-    'Ferramentas próprias',
-  ],
-  proofCount: 'Mais de 5 projetos entregues',
+  focusTitle: 'Foco',
+  focus: ['Aplicações web', 'Automação', 'Integrações'],
 }
 
 export const diferenciais = {
-  title: 'Diferenciais',
+  title: 'Como eu trabalho',
   items: [
-    'Olho técnico e também de negócio',
-    'Comunicação clara, sem enrolação',
-    'Entregas organizadas e documentadas',
-    'Soluções feitas para o seu contexto',
-    'Acompanhamento depois da entrega',
+    'Olho técnico e de negócio',
+    'Comunicação direta',
+    'Entregas documentadas',
+    'Acompanhamento após a entrega',
   ],
-  compromissoTitle: 'Como eu trabalho',
-  compromisso: ['Qualidade', 'Performance', 'Organização', 'Resultado', 'Transparência', 'Compromisso'],
 }
 
 export const skills = {
@@ -96,6 +74,7 @@ export const techStackShowcase = {
 
 export const projects = {
   title: 'Projetos',
+  listTitle: 'Seleção',
   items: [
     {
       id: 'agendaqui',
@@ -167,18 +146,16 @@ export const projects = {
 
 export const experience = {
   title: 'Experiência',
-  path: 'Suporte técnico, desenvolvimento e automação',
+  summary:
+    'Do suporte técnico ao desenvolvimento e à automação, sempre com foco em entregar algo completo e útil.',
+  pathTitle: 'Percurso',
+  stepsTitle: 'Trajetória',
   steps: ['Suporte técnico', 'Desenvolvimento', 'Automação'],
-  paragraphs: [
-    'Comecei no suporte técnico e fui migrando para desenvolvimento de sistemas e automações, sempre com o objetivo de entregar algo completo e útil.',
-    'Hoje junto código, processo e prática para montar soluções que realmente ajudam no trabalho das pessoas.',
+  stepNotes: [
+    'Base em atendimento, diagnóstico e resolução de problemas reais.',
+    'Sistemas web e ferramentas internas pensadas para o uso diário.',
+    'Rotinas e integrações que cortam retrabalho e ganham tempo.',
   ],
-  highlights: [
-    'Otimização de processos',
-    'Automação de rotinas',
-    'Desenvolvimento web',
-  ],
-  focusTitle: 'O que faço hoje',
 }
 
 export const testimonial = {
@@ -190,8 +167,8 @@ export const testimonial = {
 
 export const contact = {
   title: 'Contato',
-  headline: 'Quer conversar sobre um projeto?',
-  subtitle: 'Posso ajudar a tirar sua ideia do papel com organização e atenção ao que realmente importa.',
+  headline: 'Vamos conversar?',
+  channelsTitle: 'Canais',
   channels: [
     { icon: 'whatsapp', label: 'WhatsApp', value: '(83) 99946-7796', href: 'https://wa.me/5583999467796' },
     { icon: 'email', label: 'E-mail', value: 'deyvisonchaves@gmail.com', href: 'mailto:deyvisonchaves@gmail.com' },
@@ -199,14 +176,7 @@ export const contact = {
     { icon: 'github', label: 'GitHub', value: 'ChavesSD', href: 'https://github.com/ChavesSD' },
   ],
   cta: { label: 'Falar comigo', href: 'https://wa.me/5583999467796' },
-  ctaHeadline: 'Vamos conversar?',
-  ctaText: 'Me chama no WhatsApp ou no e-mail. Atendimento direto, sem burocracia.',
-  conversionPhrase: 'Resposta rápida, atendimento direto e sem burocracia',
-  guaranteePhrase: [
-    'Orçamento sem compromisso',
-    'Atendimento direto comigo',
-    'Resposta rápida',
-  ],
+  ctaText: 'Me chama no WhatsApp ou no e-mail.',
   primaryButtons: [
     { label: 'WhatsApp', href: 'https://wa.me/5583999467796', primary: true, icon: 'whatsapp' },
     { label: 'E-mail', href: 'mailto:deyvisonchaves@gmail.com', primary: false, icon: 'email' },
@@ -228,6 +198,7 @@ export const footer = {
 }
 
 export const sectionLabels = {
+  inicio: '01 Início',
   sobre: '02 Sobre',
   projetos: '03 Projetos',
   experiencia: '04 Experiência',
