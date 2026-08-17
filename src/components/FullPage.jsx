@@ -237,7 +237,7 @@ export default function FullPage({ sections }) {
       const deltaY = touchStartY.current - e.touches[0].clientY
       const scrollable = getScrollableAncestor(e.target)
       if (scrollable && canInnerScroll(scrollable, deltaY)) return
-      if (Math.abs(deltaY) > 8) e.preventDefault()
+      if (Math.abs(deltaY) > 8 && e.cancelable) e.preventDefault()
     }
 
     const onTouchEnd = (e) => {
