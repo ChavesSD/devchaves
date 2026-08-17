@@ -33,7 +33,7 @@ export default function HandTechPowers({ items = [], active = true }) {
       className="hand-powers pointer-events-none absolute z-30"
       style={{
         left: '4%',
-        top: '52%',
+        top: '38%',
         width: '30%',
         height: '30%',
       }}
@@ -43,7 +43,7 @@ export default function HandTechPowers({ items = [], active = true }) {
       <div className="hand-powers__glow" />
 
       {/* Ícone acima da mão */}
-      <div className="absolute left-1/2 top-[58%] flex w-full -translate-x-1/2 -translate-y-1/2 flex-col items-center">
+      <div className="absolute left-1/2 top-[42%] flex w-full -translate-x-1/2 -translate-y-1/2 flex-col items-center">
         <AnimatePresence mode="wait">
           <motion.div
             key={tech}

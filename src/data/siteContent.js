@@ -51,7 +51,7 @@ export const hero = {
     'HTML', 'CSS', 'JavaScript', 'Vue', 'React', 'Vuetify', 'Tailwind', 'Node.js', 'Python',
     'APIs REST', 'WhatsApp API', 'ADB', 'Git', 'Docker', 'Redis', 'MongoDB', 'VPS',
   ],
-  photo: '/deyvison.png?v=6',
+  photo: '/deyvison.png?v=7',
   statusLabel: 'Disponível para novos projetos',
   scrollHint: 'Role para ver mais',
 }
